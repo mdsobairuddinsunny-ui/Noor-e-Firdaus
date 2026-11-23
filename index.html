@@ -1,0 +1,2774 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="isha">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#041813" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="নূর-ই-ফিরদাউস" />
+  <title>নূর-ই-ফিরদাউস | Noor-e-Firdaus — Royal Islamic Platform BD</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FCE38A'/%3E%3Cstop offset='1' stop-color='%23B8860B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23051E18'/%3E%3Cpath d='M56 20a28 28 0 1 0 24 42 22 22 0 1 1-24-42z' fill='url(%23g)'/%3E%3Cpolygon points='68,24 71,32 79,32 73,37 75,45 68,40 61,45 63,37 57,32 65,32' fill='url(%23g)'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Cinzel:wght@600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+  <style>
+    :root {
+      --bg-1: #041511;
+      --bg-2: #08261e;
+      --bg-3: #020c09;
+      --card-bg: rgba(8, 34, 27, 0.68);
+      --card-bg-strong: rgba(7, 29, 23, 0.92);
+      --card-border: rgba(236, 198, 114, 0.24);
+      --card-border-hot: rgba(247, 215, 134, 0.72);
+      --gold-1: #fff1b8;
+      --gold-2: #e8be63;
+      --gold-3: #b38228;
+      --accent-glow: rgba(232, 190, 99, 0.32);
+      --text-main: #f8f5ec;
+      --text-soft: #c9d5ce;
+      --text-muted: #8ea399;
+      --danger: #ff5d6c;
+      --success: #34d399;
+      --font-bn: 'Hind Siliguri', sans-serif;
+      --font-ar: 'Amiri', serif;
+      --font-quran: 'Amiri Quran', 'Amiri', serif;
+      --font-royal: 'Cinzel', serif;
+      --font-num: 'Plus Jakarta Sans', sans-serif;
+      --shadow-lux: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    html[data-theme="fajr"] {
+      --bg-1: #0a1428; --bg-2: #172748; --bg-3: #070d1b;
+      --card-bg: rgba(18, 30, 58, 0.7); --card-bg-strong: rgba(12, 22, 44, 0.92);
+      --card-border: rgba(244, 196, 152, 0.28); --gold-1: #ffe8d6; --gold-2: #f4b78a; --gold-3: #c27b4b;
+      --accent-glow: rgba(244, 183, 138, 0.34);
+    }
+    html[data-theme="dhuhr"], html[data-theme="emerald"] {
+      --bg-1: #041b15; --bg-2: #0a3428; --bg-3: #02100c;
+      --card-bg: rgba(9, 43, 34, 0.7); --card-bg-strong: rgba(6, 30, 24, 0.92);
+      --card-border: rgba(242, 206, 120, 0.28); --gold-1: #fff3c4; --gold-2: #ecc25f; --gold-3: #b78620;
+      --accent-glow: rgba(236, 194, 95, 0.35);
+    }
+    html[data-theme="asr"] {
+      --bg-1: #1a140b; --bg-2: #2f2311; --bg-3: #0f0b05;
+      --card-bg: rgba(41, 30, 14, 0.72); --card-bg-strong: rgba(29, 21, 9, 0.92);
+      --card-border: rgba(246, 194, 102, 0.3); --gold-1: #ffedc2; --gold-2: #f5b94c; --gold-3: #b87a1a;
+      --accent-glow: rgba(245, 185, 76, 0.35);
+    }
+    html[data-theme="maghrib"] {
+      --bg-1: #1c0c19; --bg-2: #38152b; --bg-3: #10060e;
+      --card-bg: rgba(48, 17, 36, 0.72); --card-bg-strong: rgba(31, 11, 24, 0.92);
+      --card-border: rgba(247, 181, 126, 0.3); --gold-1: #ffe2c6; --gold-2: #f4a46a; --gold-3: #bf6630;
+      --accent-glow: rgba(244, 164, 106, 0.36);
+    }
+    html[data-theme="isha"] {
+      --bg-1: #041214; --bg-2: #082329; --bg-3: #02090b;
+      --card-bg: rgba(7, 30, 35, 0.72); --card-bg-strong: rgba(5, 22, 26, 0.93);
+      --card-border: rgba(232, 196, 114, 0.26); --gold-1: #fff1bc; --gold-2: #e7bc5c; --gold-3: #a97c1e;
+      --accent-glow: rgba(231, 188, 92, 0.34);
+    }
+    html[data-theme="obsidian"] {
+      --bg-1: #08080b; --bg-2: #15151c; --bg-3: #040406;
+      --card-bg: rgba(20, 20, 26, 0.78); --card-bg-strong: rgba(14, 14, 19, 0.95);
+      --card-border: rgba(234, 195, 108, 0.3); --gold-1: #fff2c4; --gold-2: #e5b953; --gold-3: #9e7319;
+      --accent-glow: rgba(229, 185, 83, 0.36);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      width: 100%; min-height: 100%; overflow-x: hidden;
+      font-family: var(--font-bn); color: var(--text-main);
+      background: radial-gradient(circle at 18% 12%, var(--bg-2), var(--bg-1) 52%, var(--bg-3) 100%);
+      background-attachment: fixed;
+      transition: background 1.1s ease, color 0.5s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold-2), var(--gold-3)); border-radius: 10px; }
+
+    #particles-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: 0.75;
+    }
+    .islamic-backdrop {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.055;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23E8BE63' stroke-width='0.9'%3E%3Cpolygon points='40,4 50,30 76,40 50,50 40,76 30,50 4,40 30,30'/%3E%3Ccircle cx='40' cy='40' r='16'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 88px 88px;
+    }
+
+    .app-shell {
+      position: relative; z-index: 2; max-width: 1220px; margin: 0 auto;
+      padding: 12px 14px calc(92px + env(safe-area-inset-bottom));
+    }
+
+    .top-header {
+      position: sticky; top: 8px; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 10px 16px; border-radius: 20px;
+      background: var(--card-bg-strong);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-lux);
+      margin-bottom: 14px;
+    }
+    .brand-box { display: flex; align-items: center; gap: 11px; cursor: pointer; user-select: none; }
+    .brand-crest {
+      width: 42px; height: 42px; border-radius: 13px; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(255,241,184,0.18), rgba(179,130,40,0.3));
+      border: 1px solid var(--card-border-hot);
+      display: grid; place-items: center;
+      box-shadow: 0 0 18px var(--accent-glow);
+      animation: softFloat 4.2s ease-in-out infinite;
+    }
+    .brand-title {
+      font-size: 1.16rem; font-weight: 700; line-height: 1.15;
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-2), var(--gold-1));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .brand-sub { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--success);
+      box-shadow: 0 0 10px var(--success); display: inline-block; animation: pulseDot 1.8s infinite;
+    }
+    .header-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .icon-btn {
+      height: 38px; padding: 0 11px; border-radius: 12px; border: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.04); color: var(--gold-1); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      font-family: var(--font-bn); font-size: 0.82rem; font-weight: 600;
+      transition: all 0.25s ease;
+    }
+    .icon-btn:hover, .icon-btn.active {
+      background: linear-gradient(135deg, rgba(232,190,99,0.24), rgba(179,130,40,0.18));
+      border-color: var(--card-border-hot); transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .desktop-nav { display: none; align-items: center; gap: 6px; }
+    @media (min-width: 960px) {
+      .desktop-nav { display: flex; }
+      .bottom-dock { display: none !important; }
+      .app-shell { padding-bottom: 36px; }
+    }
+
+    .notice-banner {
+      display: none; align-items: center; gap: 10px;
+      padding: 11px 16px; border-radius: 16px; margin-bottom: 14px;
+      background: linear-gradient(90deg, rgba(232,190,99,0.2), rgba(179,130,40,0.12), rgba(232,190,99,0.2));
+      border: 1px solid var(--card-border-hot);
+      box-shadow: 0 0 24px var(--accent-glow);
+      animation: fadeSlideDown 0.45s ease;
+    }
+    .notice-banner.show { display: flex; }
+    .notice-tag {
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: #161004;
+      font-weight: 800; font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; flex-shrink: 0;
+    }
+    .notice-text { font-size: 0.92rem; font-weight: 600; color: var(--gold-1); line-height: 1.4; }
+
+    .view-section { display: none; animation: fadeInUp 0.4s ease; }
+    .view-section.active { display: block; }
+
+    .top-times-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px;
+    }
+    @media (min-width: 780px) {
+      .top-times-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    }
+    .mini-waqt-card {
+      position: relative; overflow: hidden;
+      padding: 12px 12px; border-radius: 17px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.32);
+      display: flex; flex-direction: column; gap: 8px;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .mini-waqt-card:hover {
+      transform: translateY(-3px); border-color: var(--card-border-hot);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.42), 0 0 20px var(--accent-glow);
+    }
+    .mini-waqt-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .mini-bn { font-size: 0.98rem; font-weight: 700; color: var(--text-main); white-space: nowrap; }
+    .mini-time {
+      font-family: var(--font-num); font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px;
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mini-time-sub { font-family: var(--font-bn); font-size: 0.72rem; color: var(--text-muted); font-weight: 500; -webkit-text-fill-color: var(--text-muted); }
+
+    .waqt-arrow {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 18px 4px 16px; min-width: 82px;
+      background: linear-gradient(135deg, rgba(255, 241, 184, 0.2), rgba(212, 165, 58, 0.32));
+      color: var(--gold-1);
+      font-family: var(--font-ar); font-size: 1.08rem; font-weight: 700; line-height: 1.25;
+      clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%, 10% 50%);
+      filter: drop-shadow(0 0 8px var(--accent-glow));
+      white-space: nowrap;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .waqt-arrow.mini { min-width: 72px; padding: 3px 14px 3px 13px; font-size: 0.96rem; }
+
+    .hero-clock-card {
+      position: relative; overflow: hidden;
+      padding: 22px 18px; border-radius: 26px; margin-bottom: 18px;
+      background: linear-gradient(145deg, var(--card-bg-strong), var(--card-bg));
+      border: 1px solid var(--card-border-hot);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-lux), 0 0 38px var(--accent-glow);
+      text-align: center;
+    }
+    .hero-clock-card::before {
+      content: ""; position: absolute; inset: -40%;
+      background: radial-gradient(circle, var(--accent-glow), transparent 60%);
+      opacity: 0.35; pointer-events: none; animation: rotateGlow 18s linear infinite;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+    .hero-badges { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .pill-badge {
+      padding: 4px 12px; border-radius: 999px; font-size: 0.77rem; font-weight: 600;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--card-border);
+      color: var(--gold-1); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .master-clock-display {
+      font-family: var(--font-num); font-weight: 800;
+      font-size: clamp(2.35rem, 8.2vw, 4.4rem);
+      line-height: 1.05; letter-spacing: 2px;
+      background: linear-gradient(180deg, #ffffff 0%, var(--gold-1) 45%, var(--gold-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 35px var(--accent-glow);
+      margin: 6px 0;
+    }
+    .clock-ampm { font-size: 0.38em; letter-spacing: 1px; vertical-align: super; margin-left: 4px; }
+    .dates-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; color: var(--text-soft); font-size: 0.92rem; margin-bottom: 14px; }
+    .countdown-box {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+      padding: 10px 18px; border-radius: 16px;
+      background: rgba(0, 0, 0, 0.32); border: 1px solid var(--card-border);
+      box-shadow: inset 0 0 20px rgba(232, 190, 99, 0.08);
+    }
+    .countdown-label { font-size: 0.88rem; color: var(--text-soft); }
+    .countdown-timer { font-family: var(--font-num); font-size: 1.08rem; font-weight: 800; color: var(--gold-1); letter-spacing: 1px; }
+    .hero-controls { margin-top: 14px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+
+    .prayer-columns { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 820px) { .prayer-columns { grid-template-columns: 1fr 1fr; gap: 20px; } }
+    .prayer-panel {
+      border-radius: 24px; padding: 18px 14px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-lux);
+    }
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6px 14px; margin-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .panel-title-wrap { display: flex; align-items: center; gap: 10px; }
+    .panel-icon {
+      width: 40px; height: 40px; border-radius: 13px;
+      background: linear-gradient(135deg, rgba(255,241,184,0.18), rgba(179,130,40,0.3));
+      border: 1px solid var(--card-border-hot);
+      display: grid; place-items: center; font-size: 1.2rem;
+    }
+    .panel-title {
+      font-size: 1.22rem; font-weight: 700;
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .panel-ar-sub { font-family: var(--font-ar); font-size: 1.05rem; color: var(--gold-2); opacity: 0.9; }
+
+    .waqt-list { display: flex; flex-direction: column; gap: 10px; }
+    .waqt-row {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+      padding: 13px 14px; border-radius: 16px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(236, 198, 114, 0.16);
+      transition: all 0.28s ease;
+    }
+    .waqt-row:hover {
+      background: rgba(236, 198, 114, 0.09);
+      border-color: var(--card-border-hot);
+      transform: translateX(3px);
+    }
+    .waqt-row:hover .waqt-arrow { transform: scale(1.06); }
+    .waqt-row.is-next {
+      background: linear-gradient(90deg, rgba(232,190,99,0.2), rgba(255,255,255,0.05), rgba(232,190,99,0.16));
+      border-color: var(--card-border-hot);
+      box-shadow: 0 0 24px var(--accent-glow), inset 0 0 18px rgba(255,241,184,0.08);
+    }
+    .waqt-row.is-next::after {
+      content: "পরবর্তী"; position: absolute; top: 4px; left: 10px;
+      font-size: 0.62rem; font-weight: 700; color: var(--gold-1); letter-spacing: 0.4px; opacity: 0.9;
+    }
+    .waqt-bn { font-size: 1.08rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 7px; }
+    .waqt-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-2); box-shadow: 0 0 8px var(--gold-2); flex-shrink: 0; }
+    .waqt-time-pill {
+      justify-self: end; padding: 6px 12px; border-radius: 11px;
+      background: rgba(0, 0, 0, 0.34); border: 1px solid var(--card-border);
+      font-family: var(--font-num); font-size: 1.02rem; font-weight: 800;
+      color: var(--gold-1); letter-spacing: 0.5px; white-space: nowrap;
+    }
+    .waqt-time-pill.unset { color: var(--text-muted); font-weight: 600; font-size: 0.85rem; }
+
+    body.tv-mode .top-header, body.tv-mode .bottom-dock, body.tv-mode .tv-hide { display: none !important; }
+    body.tv-mode .app-shell { max-width: 1520px; padding: 18px 24px; }
+    body.tv-mode .master-clock-display { font-size: clamp(3.6rem, 9vw, 6.4rem); }
+    body.tv-mode .waqt-bn { font-size: 1.45rem; }
+    body.tv-mode .waqt-time-pill { font-size: 1.4rem; padding: 8px 18px; }
+    body.tv-mode .waqt-arrow { font-size: 1.35rem; min-width: 110px; }
+    .tv-exit-btn { display: none; position: fixed; top: 14px; right: 14px; z-index: 90; }
+    body.tv-mode .tv-exit-btn { display: inline-flex; }
+
+    .lux-card {
+      border-radius: 22px; padding: 18px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-lux); margin-bottom: 16px;
+    }
+    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .section-title {
+      font-size: 1.25rem; font-weight: 700;
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .lux-input, .lux-select, .lux-textarea {
+      width: 100%; padding: 12px 14px; border-radius: 13px;
+      background: rgba(0, 0, 0, 0.36); border: 1px solid var(--card-border);
+      color: var(--text-main); font-family: var(--font-bn); font-size: 0.95rem;
+      outline: none; transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .lux-input:focus, .lux-select:focus, .lux-textarea:focus {
+      border-color: var(--card-border-hot); box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .lux-select option { background: #0a1f1a; color: #fff; }
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 11px 18px; border-radius: 13px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2), var(--gold-3));
+      color: #151004; font-family: var(--font-bn); font-size: 0.94rem; font-weight: 700;
+      box-shadow: 0 6px 20px var(--accent-glow); transition: all 0.25s ease;
+    }
+    .btn-gold:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 9px 14px; border-radius: 12px; cursor: pointer;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+      color: var(--gold-1); font-family: var(--font-bn); font-size: 0.88rem; font-weight: 600;
+      transition: all 0.22s ease;
+    }
+    .btn-outline:hover { background: rgba(232,190,99,0.16); border-color: var(--card-border-hot); }
+    .btn-danger {
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 8px 13px; border-radius: 11px; border: 1px solid rgba(255,93,108,0.45);
+      background: rgba(255,93,108,0.15); color: #ff8e99; cursor: pointer;
+      font-family: var(--font-bn); font-size: 0.84rem; font-weight: 700; transition: all 0.22s;
+    }
+    .btn-danger:hover { background: rgba(255,93,108,0.3); color: #fff; }
+
+    .surah-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px;
+      max-height: 62vh; overflow-y: auto; padding-right: 4px;
+    }
+    .surah-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 12px 14px; border-radius: 15px; cursor: pointer;
+      background: rgba(255,255,255,0.035); border: 1px solid var(--card-border);
+      transition: all 0.22s ease;
+    }
+    .surah-item:hover { background: rgba(232,190,99,0.14); border-color: var(--card-border-hot); transform: translateY(-2px); }
+    .surah-num {
+      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(232,190,99,0.16); border: 1px solid var(--card-border);
+      display: grid; place-items: center; font-family: var(--font-num); font-weight: 800; color: var(--gold-1); font-size: 0.85rem;
+    }
+    .surah-ar-name { font-family: var(--font-ar); font-size: 1.2rem; color: var(--gold-1); }
+    .ayah-card {
+      padding: 18px 16px; border-radius: 18px; margin-bottom: 12px;
+      background: rgba(0, 0, 0, 0.26); border: 1px solid var(--card-border);
+      transition: border-color 0.25s;
+    }
+    .ayah-card.playing { border-color: var(--card-border-hot); box-shadow: 0 0 24px var(--accent-glow); }
+    .ayah-arabic {
+      font-family: var(--font-quran); direction: rtl; text-align: right;
+      font-size: var(--quran-size, 1.85rem); line-height: 2.25; color: var(--gold-1);
+      margin-bottom: 12px;
+    }
+    .ayah-bn { font-size: 1.03rem; line-height: 1.75; color: var(--text-main); margin-bottom: 6px; }
+    .ayah-en { font-size: 0.88rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 10px; }
+    .tafsir-box {
+      display: none; margin-top: 10px; padding: 14px; border-radius: 14px;
+      background: rgba(232,190,99,0.08); border-left: 3px solid var(--gold-2);
+      font-size: 0.93rem; line-height: 1.8; color: var(--text-soft);
+    }
+    .tafsir-box.open { display: block; animation: fadeInUp 0.28s ease; }
+
+    .book-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px; }
+    .book-chip {
+      padding: 9px 15px; border-radius: 999px; white-space: nowrap; cursor: pointer;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+      color: var(--text-soft); font-size: 0.88rem; font-weight: 600; transition: all 0.22s;
+    }
+    .book-chip.active, .book-chip:hover {
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: #151004;
+      border-color: var(--gold-1); font-weight: 700;
+    }
+    .hadith-card {
+      padding: 18px 16px; border-radius: 18px; margin-bottom: 13px;
+      background: rgba(0, 0, 0, 0.28); border: 1px solid var(--card-border);
+    }
+    .grade-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+      background: rgba(52, 211, 153, 0.16); border: 1px solid rgba(52, 211, 153, 0.45); color: #6ee7b7;
+    }
+    .grade-badge.weak {
+      background: rgba(251, 191, 36, 0.16); border-color: rgba(251, 191, 36, 0.45); color: #fde68a;
+    }
+    .hadith-ar {
+      font-family: var(--font-ar); direction: rtl; text-align: right;
+      font-size: 1.38rem; line-height: 2.05; color: var(--gold-1);
+      padding: 10px 0; border-bottom: 1px dashed rgba(232,190,99,0.2); margin-bottom: 12px;
+    }
+    .hadith-bn { font-size: 1.01rem; line-height: 1.82; color: var(--text-main); white-space: pre-line; }
+
+    .tasbih-stage { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 14px 8px; }
+    .tasbih-orb-wrap {
+      position: relative; width: 245px; height: 245px; display: grid; place-items: center;
+      margin: 18px 0; cursor: pointer; user-select: none;
+    }
+    .tasbih-ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+    .tasbih-orb {
+      width: 186px; height: 186px; border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, rgba(255,241,184,0.3), rgba(14,54,42,0.92) 58%, rgba(4,18,14,0.98));
+      border: 2px solid var(--card-border-hot);
+      box-shadow: 0 0 40px var(--accent-glow), inset 0 0 28px rgba(255,241,184,0.16);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform 0.1s ease, box-shadow 0.15s ease;
+    }
+    .tasbih-orb:active, .tasbih-orb.tapped { transform: scale(0.93); box-shadow: 0 0 55px var(--gold-2); }
+    .tasbih-count {
+      font-family: var(--font-num); font-size: 3.4rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(180deg, #fff, var(--gold-1), var(--gold-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .qibla-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 820px) { .qibla-grid { grid-template-columns: 360px 1fr; } }
+    .compass-dial {
+      position: relative; width: 250px; height: 250px; margin: 14px auto; border-radius: 50%;
+      background: radial-gradient(circle, rgba(10,36,29,0.9), rgba(2,12,9,0.98));
+      border: 2px solid var(--card-border-hot);
+      box-shadow: 0 0 38px var(--accent-glow), inset 0 0 30px rgba(232,190,99,0.12);
+      display: grid; place-items: center;
+    }
+    .compass-rose {
+      position: absolute; inset: 12px; border-radius: 50%;
+      border: 1px dashed rgba(232,190,99,0.35);
+      transition: transform 0.25s ease-out;
+    }
+    .compass-dir { position: absolute; font-family: var(--font-num); font-weight: 800; font-size: 0.85rem; color: var(--text-soft); }
+    .compass-dir.n { top: 6px; left: 50%; transform: translateX(-50%); color: #ff7b88; }
+    .compass-dir.s { bottom: 6px; left: 50%; transform: translateX(-50%); }
+    .compass-dir.e { right: 10px; top: 50%; transform: translateY(-50%); }
+    .compass-dir.w { left: 10px; top: 50%; transform: translateY(-50%); }
+    .qibla-needle {
+      position: absolute; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      transition: transform 0.3s cubic-bezier(.22,1,.36,1);
+    }
+    .qibla-pointer {
+      margin-top: 18px; width: 0; height: 0;
+      border-left: 11px solid transparent; border-right: 11px solid transparent;
+      border-bottom: 82px solid var(--gold-2);
+      filter: drop-shadow(0 0 12px var(--gold-2));
+    }
+    .kaaba-badge { position: absolute; top: 2px; font-size: 1.25rem; filter: drop-shadow(0 0 8px var(--gold-1)); }
+    #qibla-map { width: 100%; height: 340px; border-radius: 18px; border: 1px solid var(--card-border); z-index: 1; background: #071915; }
+
+    .ai-chat-log { display: flex; flex-direction: column; gap: 12px; max-height: 52vh; overflow-y: auto; padding: 6px 4px; margin-bottom: 12px; }
+    .ai-bubble { max-width: 92%; padding: 14px 16px; border-radius: 18px; line-height: 1.75; font-size: 0.95rem; animation: fadeInUp 0.25s ease; }
+    .ai-bubble.bot { align-self: flex-start; background: rgba(232,190,99,0.1); border: 1px solid var(--card-border-hot); color: var(--text-main); }
+    .ai-bubble.user { align-self: flex-end; background: linear-gradient(135deg, var(--gold-2), var(--gold-3)); color: #161004; font-weight: 600; }
+
+    .bottom-dock {
+      position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom));
+      z-index: 50; display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px;
+      padding: 7px 6px; border-radius: 22px;
+      background: var(--card-bg-strong); border: 1px solid var(--card-border-hot);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.6), 0 0 22px var(--accent-glow);
+    }
+    .dock-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      padding: 7px 2px; border-radius: 15px; border: none; background: transparent;
+      color: var(--text-muted); font-family: var(--font-bn); font-size: 0.68rem; font-weight: 600;
+      cursor: pointer; transition: all 0.22s ease;
+    }
+    .dock-item span.ico { font-size: 1.18rem; line-height: 1; }
+    .dock-item.active {
+      background: linear-gradient(135deg, rgba(255,241,184,0.2), rgba(232,190,99,0.22));
+      color: var(--gold-1); box-shadow: inset 0 0 12px var(--accent-glow);
+    }
+
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 100; display: none;
+      align-items: center; justify-content: center; padding: 14px;
+      background: rgba(2, 10, 8, 0.84);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; animation: fadeIn 0.28s ease; }
+    .modal-box {
+      width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto;
+      border-radius: 26px; padding: 24px 20px;
+      background: linear-gradient(155deg, var(--card-bg-strong), var(--bg-1));
+      border: 1px solid var(--card-border-hot);
+      box-shadow: 0 25px 65px rgba(0,0,0,0.75), 0 0 42px var(--accent-glow);
+    }
+    .modal-box.wide { max-width: 860px; }
+
+    .admin-tabs { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 4px; }
+    .admin-tab {
+      padding: 9px 14px; border-radius: 12px; border: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.04); color: var(--text-soft); cursor: pointer;
+      font-family: var(--font-bn); font-size: 0.88rem; font-weight: 700; white-space: nowrap;
+    }
+    .admin-tab.active {
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: #161004; border-color: var(--gold-1);
+    }
+    .admin-pane { display: none; }
+    .admin-pane.active { display: block; }
+    .time-edit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .field-label { display: block; font-size: 0.82rem; color: var(--gold-1); margin-bottom: 5px; font-weight: 600; }
+
+    .switch-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 14px 16px; border-radius: 16px;
+      background: rgba(232,190,99,0.1); border: 1px solid var(--card-border-hot);
+      margin-bottom: 14px;
+    }
+    .toggle-switch { position: relative; width: 56px; height: 30px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; cursor: pointer; border-radius: 999px;
+      background: rgba(255,255,255,0.18); border: 1px solid var(--card-border); transition: 0.3s;
+    }
+    .toggle-slider::before {
+      content: ""; position: absolute; width: 22px; height: 22px; left: 3px; bottom: 3px;
+      border-radius: 50%; background: #fff; transition: 0.3s;
+    }
+    .toggle-switch input:checked + .toggle-slider { background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(26px); background: #140e02; }
+
+    .vip-code-card {
+      padding: 13px 14px; border-radius: 15px; margin-bottom: 10px;
+      background: rgba(0,0,0,0.32); border: 1px solid var(--card-border);
+      display: flex; flex-direction: column; gap: 9px;
+    }
+    .vip-code-num { font-family: var(--font-num); font-size: 1.35rem; font-weight: 800; letter-spacing: 3px; color: var(--gold-1); }
+    .status-pill { padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+    .status-pill.unused { background: rgba(96,165,250,0.18); color: #93c5fd; border: 1px solid rgba(96,165,250,0.4); }
+    .status-pill.active { background: rgba(52,211,153,0.18); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.4); }
+    .status-pill.banned { background: rgba(255,93,108,0.2); color: #ff8e99; border: 1px solid rgba(255,93,108,0.45); }
+    .status-pill.expired { background: rgba(251,191,36,0.18); color: #fde68a; border: 1px solid rgba(251,191,36,0.45); }
+
+    .toast-box {
+      position: fixed; top: 18px; left: 50%; transform: translateX(-50%) translateY(-100px);
+      z-index: 250; padding: 11px 20px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: #161004;
+      font-weight: 700; font-size: 0.9rem; box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1); max-width: 92vw; text-align: center;
+    }
+    .toast-box.show { transform: translateX(-50%) translateY(0); }
+
+    @keyframes softFloat { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-4px); } }
+    @keyframes pulseDot { 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: 0.5; transform: scale(1.3); } }
+    @keyframes rotateGlow { from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
+    @keyframes fadeIn { from{ opacity: 0; } to{ opacity: 1; } }
+    @keyframes fadeInUp { from{ opacity: 0; transform: translateY(12px); } to{ opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlideDown { from{ opacity: 0; transform: translateY(-10px); } to{ opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="islamic-backdrop"></div>
+  <div id="toast" class="toast-box"></div>
+
+  <button class="btn-gold tv-exit-btn" onclick="NF.toggleTvMode()">✖ টিভি মোড বন্ধ করুন</button>
+
+  <div class="app-shell">
+    <header class="top-header">
+      <div class="brand-box" id="brand-trigger" title="নূর-ই-ফিরদাউস">
+        <div class="brand-crest">
+          <svg width="24" height="24" viewBox="0 0 100 100">
+            <path d="M58 14a34 34 0 1 0 28 52 26 26 0 1 1-28-52z" fill="#FCE38A"/>
+            <polygon points="73,20 76,29 85,29 78,35 80,44 73,39 66,44 68,35 61,29 70,29" fill="#E8BE63"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">নূর-ই-ফিরদাউস</div>
+          <div class="brand-sub">
+            <span class="live-dot" id="sync-dot"></span>
+            <span id="sync-label">BST লাইভ</span> • <span id="device-tag">স্মার্ট স্কেল</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="desktop-nav">
+        <button class="icon-btn active" data-nav="prayer" onclick="NF.switchTab('prayer')">🕌 ওয়াক্ত</button>
+        <button class="icon-btn" data-nav="quran" onclick="NF.switchTab('quran')">📖 কুরআন</button>
+        <button class="icon-btn" data-nav="hadith" onclick="NF.switchTab('hadith')">📚 হাদিস</button>
+        <button class="icon-btn" data-nav="tasbih" onclick="NF.switchTab('tasbih')">📿 তাসবিহ</button>
+        <button class="icon-btn" data-nav="qibla" onclick="NF.switchTab('qibla')">🧭 কিবলা</button>
+        <button class="icon-btn" data-nav="ai" onclick="NF.switchTab('ai')">✨ নূর AI</button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="sound-btn" onclick="NF.toggleSound()" title="সাউন্ড">🔊</button>
+        <button class="icon-btn" onclick="NF.cycleTheme()" id="theme-btn" title="থিম পরিবর্তন">🎨 অটো</button>
+        <button class="icon-btn" id="vip-status-btn" style="display:none;" onclick="NF.showVipInfo()" title="VIP স্ট্যাটাস">👑</button>
+      </div>
+    </header>
+
+    <div id="live-notice-banner" class="notice-banner">
+      <span class="notice-tag">📢 জরুরি ঘোষণা</span>
+      <div class="notice-text" id="live-notice-text"></div>
+    </div>
+
+    <section id="view-prayer" class="view-section active">
+      <div class="top-times-grid" id="top-times-grid"></div>
+
+      <div class="hero-clock-card">
+        <div class="hero-inner">
+          <div class="hero-badges">
+            <span class="pill-badge">🇧🇩 বাংলাদেশ সময় (BST)</span>
+            <span class="pill-badge" id="sky-mood-badge">✨ প্যারাডাইস অটো থিম</span>
+          </div>
+          <div class="master-clock-display" id="master-clock">00:00:00<span class="clock-ampm">AM</span></div>
+          <div class="dates-row">
+            <span id="bn-gregorian-date">লোড হচ্ছে...</span>
+            <span>✦</span>
+            <span id="bn-hijri-date" style="color:var(--gold-1); font-weight:600;">হিজরি তারিখ</span>
+          </div>
+          <div class="countdown-box">
+            <span class="countdown-label" id="countdown-label">পরবর্তী ওয়াক্ত:</span>
+            <span class="countdown-timer" id="countdown-timer">অ্যাডমিন সময়ের অপেক্ষায়</span>
+          </div>
+          <div class="hero-controls tv-hide">
+            <button class="btn-outline" onclick="NF.toggleTvMode()">📺 মসজিদ টিভি ডিসপ্লে মোড</button>
+            <button class="btn-outline" onclick="NF.openTermsModal(true)">📜 নীতিমালা</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prayer-columns">
+        <div class="prayer-panel">
+          <div class="panel-header">
+            <div class="panel-title-wrap">
+              <div class="panel-icon">🕌</div>
+              <div>
+                <div class="panel-title">দৈনিক জামাতের সময়সূচি</div>
+                <div style="font-size:0.76rem; color:var(--text-muted);">জামাত শুরু হওয়ার সঠিক সময়</div>
+              </div>
+            </div>
+            <div class="panel-ar-sub">أوقات الجماعة</div>
+          </div>
+          <div class="waqt-list" id="jamat-list"></div>
+        </div>
+
+        <div class="prayer-panel">
+          <div class="panel-header">
+            <div class="panel-title-wrap">
+              <div class="panel-icon">📢</div>
+              <div>
+                <div class="panel-title">দৈনিক আযানের সময়সূচি</div>
+                <div style="font-size:0.76rem; color:var(--text-muted);">প্রতি ওয়াক্তের আযানের সময়</div>
+              </div>
+            </div>
+            <div class="panel-ar-sub">أوقات الأذان</div>
+          </div>
+          <div class="waqt-list" id="azan-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-quran" class="view-section">
+      <div class="lux-card" id="quran-list-view">
+        <div class="section-head">
+          <div>
+            <div class="section-title">📖 আল-কুরআনুল কারীম (১১৪ সূরা)</div>
+            <div style="font-size:0.82rem; color:var(--text-muted);">আরবি উসমানী, বাংলা ও ইংরেজি অনুবাদ, তাফসীর ফাতহুল মাজীদ এবং তিলাওয়াত</div>
+          </div>
+          <button class="btn-outline" onclick="NF.showQuranBookmarks()">🔖 বুকমার্ক (<span id="q-bm-count">0</span>)</button>
+        </div>
+        <input type="text" class="lux-input" id="surah-search" placeholder="সূরার নাম বা নম্বর খুঁজুন (যেমন: আল-ফাতিহা, ইয়াসিন, 36)..." oninput="NF.filterSurahs()" style="margin-bottom:14px;" />
+        <div class="surah-grid" id="surah-grid">
+          <div style="color:var(--gold-1); padding:20px;">সূরা তালিকা লোড হচ্ছে...</div>
+        </div>
+      </div>
+
+      <div class="lux-card" id="quran-reader-view" style="display:none;">
+        <div class="section-head">
+          <button class="btn-outline" onclick="NF.backToSurahList()">⬅ সূরা তালিকা</button>
+          <div style="text-align:center;">
+            <div class="section-title" id="reader-surah-title">সূরা</div>
+            <div style="font-family:var(--font-ar); color:var(--gold-2); font-size:1.15rem;" id="reader-surah-ar"></div>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn-outline" onclick="NF.changeQuranFont(-0.15)">A-</button>
+            <button class="btn-outline" onclick="NF.changeQuranFont(0.15)">A+</button>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:14px;">
+          <button class="btn-gold" id="surah-play-all-btn" onclick="NF.togglePlayFullSurah()">▶ সম্পূর্ণ সূরা তিলাওয়াত শুনুন (মিশারী রাশিদ)</button>
+          <button class="btn-outline" onclick="NF.stopAudio()">⏹ থামান</button>
+        </div>
+        <div id="ayahs-container"></div>
+      </div>
+    </section>
+
+    <section id="view-hadith" class="view-section">
+      <div class="lux-card">
+        <div class="section-head">
+          <div>
+            <div class="section-title">📚 সহীহ হাদিস বিশ্বকোষ (সিহাহ সিত্তাহ)</div>
+            <div style="font-size:0.82rem; color:var(--text-muted);">আরবি, বাংলা অনুবাদ, হাদিসের মান (তাহকীক) ও শেয়ার কার্ড</div>
+          </div>
+          <button class="btn-outline" onclick="NF.showHadithBookmarks()">🔖 সংরক্ষিত (<span id="h-bm-count">0</span>)</button>
+        </div>
+
+        <div class="book-chips" id="hadith-books-bar"></div>
+
+        <div style="display:grid; grid-template-columns: 1fr auto; gap:8px; margin-bottom:10px;">
+          <select class="lux-select" id="hadith-section-select" onchange="NF.loadHadithSection()">
+            <option value="">অধ্যায় লোড হচ্ছে...</option>
+          </select>
+          <button class="btn-outline" onclick="NF.lookupHadithByNumber()">🔍 নম্বর দিয়ে খুঁজুন</button>
+        </div>
+
+        <input type="text" class="lux-input" id="hadith-filter-input" placeholder="এই অধ্যায়ের ভেতর বাংলা/আরবি শব্দ বা হাদিস নম্বর লিখুন..." oninput="NF.filterLoadedHadiths()" style="margin-bottom:14px;" />
+
+        <div id="hadith-container">
+          <div style="text-align:center; padding:26px; color:var(--gold-1);">কিতাব সিলেক্ট করলে হাদিস লোড হবে...</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-tasbih" class="view-section">
+      <div class="lux-card">
+        <div class="section-head">
+          <div class="section-title">📿 রয়্যাল ডিজিটাল তাসবিহ</div>
+          <div class="pill-badge">মোট জিকির: <span id="tasbih-total" style="font-family:var(--font-num);">0</span></div>
+        </div>
+
+        <div class="book-chips" id="dhikr-presets"></div>
+
+        <div class="tasbih-stage">
+          <div id="dhikr-ar-display" style="font-family:var(--font-ar); font-size:2rem; color:var(--gold-1); margin-bottom:4px;">سُبْحَانَ اللَّهِ</div>
+          <div id="dhikr-bn-display" style="font-size:1.05rem; color:var(--text-soft);">সুবহানাল্লাহ (আল্লাহ পবিত্র)</div>
+
+          <div class="tasbih-orb-wrap" onclick="NF.tapTasbih()">
+            <svg class="tasbih-ring" width="245" height="245" viewBox="0 0 245 245">
+              <circle cx="122.5" cy="122.5" r="110" fill="none" stroke="rgba(232,190,99,0.16)" stroke-width="8" />
+              <circle id="tasbih-progress-circle" cx="122.5" cy="122.5" r="110" fill="none" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="691" stroke-dashoffset="691" />
+              <defs>
+                <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fff1b8"/><stop offset="100%" stop-color="#e8be63"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="tasbih-orb" id="tasbih-orb">
+              <div class="tasbih-count" id="tasbih-count">0</div>
+              <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">লক্ষ্য: <span id="tasbih-target-label">33</span></div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+            <button class="btn-outline" onclick="NF.setTasbihTarget(33)">লক্ষ্য ৩৩</button>
+            <button class="btn-outline" onclick="NF.setTasbihTarget(99)">লক্ষ্য ৯৯</button>
+            <button class="btn-outline" onclick="NF.setTasbihTarget(100)">লক্ষ্য ১০০</button>
+            <button class="btn-outline" onclick="NF.setTasbihTarget(0)">অসীম ∞</button>
+            <button class="btn-danger" onclick="NF.resetTasbih()">🔄 রিসেট</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-qibla" class="view-section">
+      <div class="lux-card">
+        <div class="section-head">
+          <div>
+            <div class="section-title">🧭 নির্ভুল কিবলা কম্পাস ও লাইভ ম্যাপ</div>
+            <div style="font-size:0.82rem; color:var(--text-muted);">আপনার বর্তমান GPS লোকেশন থেকে পবিত্র কাবা শরীফের সঠিক দিক</div>
+          </div>
+          <div style="display:flex; gap:7px; flex-wrap:wrap;">
+            <button class="btn-gold" onclick="NF.initQiblaGPS()">📍 লোকেশন আপডেট</button>
+            <button class="btn-outline" onclick="NF.enableCompassSensor()">🧭 কম্পাস সেন্সর চালু</button>
+          </div>
+        </div>
+
+        <div class="qibla-grid">
+          <div style="text-align:center;">
+            <div class="compass-dial">
+              <div class="compass-rose" id="compass-rose">
+                <span class="compass-dir n">N</span>
+                <span class="compass-dir e">E</span>
+                <span class="compass-dir s">S</span>
+                <span class="compass-dir w">W</span>
+              </div>
+              <div class="qibla-needle" id="qibla-needle">
+                <span class="kaaba-badge">🕋</span>
+                <div class="qibla-pointer"></div>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+              <div style="padding:10px; border-radius:14px; background:rgba(0,0,0,0.3); border:1px solid var(--card-border);">
+                <div style="font-size:0.75rem; color:var(--text-muted);">কিবলার কোণ</div>
+                <div style="font-family:var(--font-num); font-size:1.2rem; font-weight:800; color:var(--gold-1);" id="qibla-deg">277.6°</div>
+              </div>
+              <div style="padding:10px; border-radius:14px; background:rgba(0,0,0,0.3); border:1px solid var(--card-border);">
+                <div style="font-size:0.75rem; color:var(--text-muted);">কাবা থেকে দূরত্ব</div>
+                <div style="font-family:var(--font-num); font-size:1.1rem; font-weight:800; color:var(--gold-1);" id="qibla-dist">~5,175 কি.মি.</div>
+              </div>
+            </div>
+            <div id="qibla-status" style="font-size:0.82rem; color:var(--text-soft); margin-top:10px;">ডিফল্ট ঢাকা (বাংলাদেশ) দেখানো হচ্ছে — নিখুঁত দিক পেতে "লোকেশন আপডেট" চাপুন।</div>
+          </div>
+
+          <div>
+            <div id="qibla-map"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-ai" class="view-section">
+      <div class="lux-card">
+        <div class="section-head">
+          <div>
+            <div class="section-title">✨ নূর AI — স্মার্ট ইসলামিক গাইড</div>
+            <div style="font-size:0.82rem; color:var(--text-muted);">বাংলা বা বাংলিশে আপনার প্রশ্ন লিখুন — কুরআন, সহীহ হাদিস ও মাসনূন দুআ খুঁজুন</div>
+          </div>
+        </div>
+
+        <div class="book-chips" id="ai-quick-prompts"></div>
+        <div class="ai-chat-log" id="ai-chat-log"></div>
+
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="lux-input" id="ai-input" placeholder="যেমন: মন খারাপ হলে দুআ, ঋণ মুক্তি, মা-বাবার হক, রিজিক, তাওবা..." onkeydown="if(event.key==='Enter') NF.askNoorAI()" />
+          <button class="btn-gold" onclick="NF.askNoorAI()">পাঠান ✨</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="bottom-dock">
+    <button class="dock-item active" data-nav="prayer" onclick="NF.switchTab('prayer')"><span class="ico">🕌</span>ওয়াক্ত</button>
+    <button class="dock-item" data-nav="quran" onclick="NF.switchTab('quran')"><span class="ico">📖</span>কুরআন</button>
+    <button class="dock-item" data-nav="hadith" onclick="NF.switchTab('hadith')"><span class="ico">📚</span>হাদিস</button>
+    <button class="dock-item" data-nav="tasbih" onclick="NF.switchTab('tasbih')"><span class="ico">📿</span>তাসবিহ</button>
+    <button class="dock-item" data-nav="qibla" onclick="NF.switchTab('qibla')"><span class="ico">🧭</span>কিবলা</button>
+    <button class="dock-item" data-nav="ai" onclick="NF.switchTab('ai')"><span class="ico">✨</span>নূর AI</button>
+  </nav>
+
+  <div class="modal-overlay" id="welcome-modal">
+    <div class="modal-box" style="text-align:center;">
+      <div style="font-family:var(--font-ar); font-size:1.7rem; color:var(--gold-1); margin-bottom:6px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h2 class="section-title" id="welcome-title-el" style="font-size:1.45rem; margin-bottom:8px;">নূর-ই-ফিরদাউস-এ স্বাগতম</h2>
+      <p id="welcome-body-el" style="font-size:0.95rem; line-height:1.75; color:var(--text-soft); margin-bottom:16px;">
+        বাংলাদেশের সর্বাধুনিক ও আল্ট্রা-প্রিমিয়াম ইসলামিক প্ল্যাটফর্মে আপনাকে স্বাগতম। এখানে প্রতিদিন সঠিক জামাত ও আযানের সময়সূচি, সম্পূর্ণ আল-কুরআন, সহীহ হাদিসের বিশাল ভাণ্ডার, তাসবিহ ও কিবলা পাবেন।
+      </p>
+      <div style="text-align:left; padding:12px 14px; border-radius:14px; background:rgba(0,0,0,0.3); border:1px solid var(--card-border); font-size:0.84rem; color:var(--text-soft); line-height:1.7; margin-bottom:14px; max-height:140px; overflow-y:auto;">
+        <b>ব্যবহারের নীতিমালা (Terms &amp; Conditions):</b><br/>
+        ১. এই প্ল্যাটফর্মে প্রদর্শিত দৈনিক জামাত ও আযানের সময়সূচি সরাসরি অ্যাডমিন প্যানেল থেকে রিয়েল-টাইমে পরিচালিত হয়।<br/>
+        ২. কুরআন ও হাদিসের পবিত্রতা বজায় রেখে ব্যবহার করুন এবং কোনো টেক্সট বিকৃত করে শেয়ার করবেন না।<br/>
+        ৩. যদি VIP কোড মোড চালু থাকে, তবে একটি ৬-ডিজিটের কোড শুধুমাত্র একটি ডিভাইসেই ব্যবহার করা যাবে।
+      </div>
+      <label style="display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:16px; cursor:pointer; font-size:0.9rem; color:var(--gold-1);">
+        <input type="checkbox" id="terms-checkbox" style="width:18px; height:18px; accent-color:#e8be63;" />
+        আমি সকল শর্ত ও নীতিমালায় সম্মত আছি
+      </label>
+      <button class="btn-gold" style="width:100%;" onclick="NF.acceptWelcome()">প্রবেশ করুন ✨</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="vip-gate-modal">
+    <div class="modal-box" style="text-align:center;">
+      <div style="font-size:2.4rem; margin-bottom:6px;">👑</div>
+      <h2 class="section-title" style="font-size:1.4rem; margin-bottom:6px;">নূর-ই-ফিরদাউস VIP অ্যাক্সেস</h2>
+      <p style="font-size:0.9rem; color:var(--text-soft); margin-bottom:16px;">
+        অ্যাডমিনের কাছ থেকে প্রাপ্ত আপনার ব্যক্তিগত <b>৬-ডিজিটের VIP কোড</b> দিন। (একটি কোড শুধু একটি ফোনেই কাজ করবে)
+      </p>
+      <input type="text" inputmode="numeric" maxlength="6" id="vip-code-input" class="lux-input"
+        placeholder="• • • • • •" style="text-align:center; font-family:var(--font-num); font-size:1.7rem; letter-spacing:8px; font-weight:800; margin-bottom:12px;"
+        onkeydown="if(event.key==='Enter') NF.verifyVipCode()" />
+      <div id="vip-gate-error" style="color:var(--danger); font-size:0.86rem; min-height:22px; margin-bottom:10px; font-weight:600;"></div>
+      <button class="btn-gold" style="width:100%; margin-bottom:12px;" onclick="NF.verifyVipCode()">অ্যাক্সেস নিশ্চিত করুন 🔓</button>
+      <a id="vip-contact-link" href="#" target="_blank" class="btn-outline" style="width:100%; text-decoration:none;">💬 নতুন কোডের জন্য অ্যাডমিনের সাথে যোগাযোগ</a>
+      <div style="margin-top:14px;">
+        <button style="background:none; border:none; color:var(--text-muted); font-size:0.75rem; cursor:pointer;" onclick="NF.openAdminAuth()">অ্যাডমিন প্যানেল</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="kickout-modal">
+    <div class="modal-box" style="text-align:center; border-color:rgba(255,93,108,0.65);">
+      <div id="kickout-icon" style="font-size:3rem; margin-bottom:8px;">🚫</div>
+      <h2 id="kickout-title" style="color:#ff8e99; font-size:1.4rem; margin-bottom:8px;">অ্যাক্সেস স্থগিত করা হয়েছে</h2>
+      <p id="kickout-msg" style="color:var(--text-soft); font-size:0.95rem; line-height:1.7; margin-bottom:18px;"></p>
+      <a id="kickout-contact" href="#" target="_blank" class="btn-gold" style="width:100%; text-decoration:none; margin-bottom:10px;">💬 অ্যাডমিনের সাথে যোগাযোগ করুন</a>
+      <button class="btn-outline" style="width:100%;" onclick="NF.retryFromKickout()">🔑 নতুন কোড দিয়ে প্রবেশ করুন</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="admin-auth-modal">
+    <div class="modal-box">
+      <div class="section-head">
+        <div class="section-title">🛡️ রয়্যাল অ্যাডমিন সিকিউরিটি গেট</div>
+        <button class="btn-outline" onclick="NF.closeModal('admin-auth-modal')">✖</button>
+      </div>
+      <div id="admin-mode-hint" style="padding:10px 12px; border-radius:12px; background:rgba(232,190,99,0.1); border:1px solid var(--card-border); font-size:0.8rem; color:var(--gold-1); margin-bottom:14px; line-height:1.55;"></div>
+
+      <label class="field-label">অ্যাডমিন ইমেইল</label>
+      <input type="email" id="adm-email" class="lux-input" placeholder="admin@example.com" style="margin-bottom:10px;" />
+
+      <label class="field-label">শক্তিশালী পাসওয়ার্ড</label>
+      <input type="password" id="adm-pass" class="lux-input" placeholder="••••••••" style="margin-bottom:10px;" />
+
+      <label class="field-label">৬-ডিজিট গোপন সিকিউরিটি পিন (PIN)</label>
+      <input type="password" inputmode="numeric" maxlength="6" id="adm-pin" class="lux-input" placeholder="••••••" style="margin-bottom:12px; letter-spacing:5px; font-family:var(--font-num);" onkeydown="if(event.key==='Enter') NF.adminLogin()" />
+
+      <div id="adm-auth-err" style="color:var(--danger); font-size:0.84rem; min-height:20px; margin-bottom:10px; font-weight:600;"></div>
+      <button class="btn-gold" style="width:100%;" onclick="NF.adminLogin()">সুরক্ষিত লগইন 🔐</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="admin-panel-modal">
+    <div class="modal-box wide">
+      <div class="section-head">
+        <div>
+          <div class="section-title">👑 নূর-ই-ফিরদাউস অ্যাডমিন কমান্ড সেন্টার</div>
+          <div id="adm-cloud-badge" style="font-size:0.78rem; color:var(--success); margin-top:2px;"></div>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-danger" onclick="NF.adminLogout()">লগআউট</button>
+          <button class="btn-outline" onclick="NF.closeModal('admin-panel-modal')">✖ বন্ধ</button>
+        </div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-admtab="times" onclick="NF.switchAdminTab('times')">🕌 নামাজের সময়</button>
+        <button class="admin-tab" data-admtab="vip" onclick="NF.switchAdminTab('vip')">👑 ফ্রি / VIP কোড</button>
+        <button class="admin-tab" data-admtab="settings" onclick="NF.switchAdminTab('settings')">📢 নোটিশ ও সিকিউরিটি</button>
+      </div>
+
+      <div class="admin-pane active" id="adm-pane-times">
+        <div style="display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px;">
+          <button class="btn-outline" onclick="NF.fillTestSampleTimes()">⚡ টেস্টের জন্য স্যাম্পল টাইম বসান</button>
+          <button class="btn-outline" onclick="NF.savePreset()">💾 প্রিসেট সেভ করুন</button>
+          <button class="btn-outline" onclick="NF.loadPreset()">📂 প্রিসেট লোড</button>
+          <button class="btn-danger" onclick="NF.clearAllTimes()">🗑️ সব সময় মুছুন</button>
+        </div>
+
+        <h4 style="color:var(--gold-1); margin-bottom:8px;">☀️ টপ বার (সূর্যোদয়, সূর্যাস্ত, সেহরি, ইফতার)</h4>
+        <div class="time-edit-grid">
+          <div><label class="field-label">সূর্যোদয় (الشروق)</label><input type="time" id="inp-top-sunrise" class="lux-input" /></div>
+          <div><label class="field-label">সূর্যাস্ত (الغروب)</label><input type="time" id="inp-top-sunset" class="lux-input" /></div>
+          <div><label class="field-label">সেহরি (السحور)</label><input type="time" id="inp-top-sehri" class="lux-input" /></div>
+          <div><label class="field-label">ইফতার (الإفطار)</label><input type="time" id="inp-top-iftar" class="lux-input" /></div>
+        </div>
+
+        <h4 style="color:var(--gold-1); margin-bottom:8px;">🕌 জামাতের সময়সূচি (Jamat)</h4>
+        <div class="time-edit-grid">
+          <div><label class="field-label">ফজর জামাত</label><input type="time" id="inp-jamat-fajr" class="lux-input" /></div>
+          <div><label class="field-label">যোহর জামাত</label><input type="time" id="inp-jamat-dhuhr" class="lux-input" /></div>
+          <div><label class="field-label">আসর জামাত</label><input type="time" id="inp-jamat-asr" class="lux-input" /></div>
+          <div><label class="field-label">মাগরিব জামাত</label><input type="time" id="inp-jamat-maghrib" class="lux-input" /></div>
+          <div><label class="field-label">এশা জামাত</label><input type="time" id="inp-jamat-isha" class="lux-input" /></div>
+          <div><label class="field-label">জুম'আ জামাত</label><input type="time" id="inp-jamat-jummah" class="lux-input" /></div>
+        </div>
+
+        <h4 style="color:var(--gold-1); margin-bottom:8px;">📢 আযানের সময়সূচি (Azan)</h4>
+        <div class="time-edit-grid">
+          <div><label class="field-label">ফজর আযান</label><input type="time" id="inp-azan-fajr" class="lux-input" /></div>
+          <div><label class="field-label">যোহর আযান</label><input type="time" id="inp-azan-dhuhr" class="lux-input" /></div>
+          <div><label class="field-label">আসর আযান</label><input type="time" id="inp-azan-asr" class="lux-input" /></div>
+          <div><label class="field-label">মাগরিব আযান</label><input type="time" id="inp-azan-maghrib" class="lux-input" /></div>
+          <div><label class="field-label">এশা আযান</label><input type="time" id="inp-azan-isha" class="lux-input" /></div>
+          <div><label class="field-label">জুম'আ আযান</label><input type="time" id="inp-azan-jummah" class="lux-input" /></div>
+        </div>
+
+        <button class="btn-gold" style="width:100%; padding:14px;" onclick="NF.publishPrayerTimes()">🚀 লাইভ পাবলিশ করুন (মিলিসেকেন্ডে সবার স্ক্রিনে আপডেট হবে)</button>
+      </div>
+
+      <div class="admin-pane" id="adm-pane-vip">
+        <div class="switch-row">
+          <div>
+            <div style="font-weight:700; color:var(--gold-1); font-size:1.02rem;">👑 VIP ৬-ডিজিট কোড লক মোড</div>
+            <div id="vip-mode-desc" style="font-size:0.82rem; color:var(--text-soft);">বন্ধ রাখলে পুরো ওয়েবসাইট ১০০% ফ্রি ও সবার জন্য উন্মুক্ত থাকবে।</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="adm-vip-toggle" onchange="NF.toggleVipMode()" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div style="padding:14px; border-radius:16px; background:rgba(0,0,0,0.3); border:1px solid var(--card-border); margin-bottom:14px;">
+          <h4 style="color:var(--gold-1); margin-bottom:10px;">➕ নতুন ৬-ডিজিট অ্যাক্সেস কোড তৈরি করুন</h4>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-bottom:10px;">
+            <div>
+              <label class="field-label">ইউজারের নাম / নোট</label>
+              <input type="text" id="vip-new-label" class="lux-input" placeholder="যেমন: রাফিক ভাই" />
+            </div>
+            <div>
+              <label class="field-label">মেয়াদ সিলেক্ট করুন</label>
+              <select id="vip-new-duration" class="lux-select" onchange="NF.onDurationSelect()">
+                <option value="1">১ দিন (টেস্ট)</option>
+                <option value="7">৭ দিন</option>
+                <option value="15">১৫ দিন</option>
+                <option value="30" selected>৩০ দিন (১ মাস)</option>
+                <option value="90">৯০ দিন (৩ মাস)</option>
+                <option value="365">৩৬৫ দিন (১ বছর)</option>
+                <option value="36500">আজীবন (Lifetime)</option>
+                <option value="custom">নিজে দিন লিখুন...</option>
+              </select>
+            </div>
+            <div id="vip-custom-days-wrap" style="display:none;">
+              <label class="field-label">কত দিন?</label>
+              <input type="number" id="vip-custom-days" class="lux-input" min="1" placeholder="যেমন: 45" />
+            </div>
+          </div>
+          <button class="btn-gold" style="width:100%;" onclick="NF.generateVipCode()">✨ নতুন ইউনিক ৬-ডিজিট কোড তৈরি করুন</button>
+        </div>
+
+        <input type="text" id="vip-search-input" class="lux-input" placeholder="কোড বা নাম দিয়ে খুঁজুন..." oninput="NF.renderAdminVipList()" style="margin-bottom:10px;" />
+        <div id="adm-vip-list"></div>
+      </div>
+
+      <div class="admin-pane" id="adm-pane-settings">
+        <div class="switch-row">
+          <div>
+            <div style="font-weight:700; color:var(--gold-1);">📢 গ্লোবাল লাইভ নোটিশ চালু করুন</div>
+            <div style="font-size:0.8rem; color:var(--text-soft);">চালু করলে সবার হোমপেজের একদম উপরে ঘোষণাটি দেখাবে।</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="adm-notice-toggle" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <label class="field-label">ঘোষণার টেক্সট</label>
+        <textarea id="adm-notice-text" rows="2" class="lux-textarea" placeholder="যেমন: আজ জুম'আর খুতবা শুরু হবে ১:১৫ মিনিটে..." style="margin-bottom:12px;"></textarea>
+
+        <label class="field-label">অ্যাডমিন হোয়াটসঅ্যাপ নম্বর (যোগাযোগের জন্য)</label>
+        <input type="text" id="adm-whatsapp" class="lux-input" placeholder="+8801XXXXXXXXX" style="margin-bottom:12px;" />
+
+        <label class="field-label">ওয়েলকাম মেসেজ শিরোনাম</label>
+        <input type="text" id="adm-welcome-title" class="lux-input" style="margin-bottom:12px;" />
+
+        <button class="btn-gold" style="width:100%; margin-bottom:18px;" onclick="NF.saveGeneralSettings()">💾 নোটিশ ও সেটিংস সেভ করুন</button>
+
+        <div style="padding:14px; border-radius:16px; background:rgba(255,93,108,0.08); border:1px solid rgba(255,93,108,0.3); margin-bottom:16px;">
+          <h4 style="color:#ff8e99; margin-bottom:8px;">🔐 ৬-ডিজিট অ্যাডমিন সিকিউরিটি পিন পরিবর্তন</h4>
+          <div style="display:flex; gap:8px;">
+            <input type="password" inputmode="numeric" maxlength="6" id="adm-new-pin" class="lux-input" placeholder="নতুন ৬ ডিজিট পিন" />
+            <button class="btn-danger" onclick="NF.changeAdminPin()">পিন বদলান</button>
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-1); margin-bottom:8px;">🧾 সাম্প্রতিক অ্যাক্টিভিটি লগ</h4>
+        <div id="adm-audit-log" style="max-height:160px; overflow-y:auto; font-size:0.82rem; color:var(--text-soft); background:rgba(0,0,0,0.3); padding:10px; border-radius:12px; border:1px solid var(--card-border);"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="share-card-modal">
+    <div class="modal-box" style="text-align:center;">
+      <div class="section-head">
+        <div class="section-title">🖼️ হাদিস শেয়ার কার্ড</div>
+        <button class="btn-outline" onclick="NF.closeModal('share-card-modal')">✖</button>
+      </div>
+      <canvas id="share-canvas" width="900" height="1050" style="width:100%; border-radius:16px; border:1px solid var(--card-border-hot); margin-bottom:12px;"></canvas>
+      <button class="btn-gold" style="width:100%;" onclick="NF.downloadShareCard()">⬇ গ্যালারিতে সেভ করুন (PNG)</button>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    const FIREBASE_CONFIG = {
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
+    };
+
+    const TOP_WAQTS = [
+      { key: "sunrise", bn: "সূর্যোদয়", ar: "الشروق", icon: "🌅" },
+      { key: "sunset",  bn: "সূর্যাস্ত",  ar: "الغروب", icon: "🌇" },
+      { key: "sehri",   bn: "সেহরি",    ar: "السحور", icon: "🌙" },
+      { key: "iftar",   bn: "ইফতার",    ar: "الإفطار", icon: "🌴" }
+    ];
+
+    const MAIN_WAQTS = [
+      { key: "fajr",    bn: "ফজর",    ar: "الفجر" },
+      { key: "dhuhr",   bn: "যোহর",   ar: "الظهر" },
+      { key: "asr",     bn: "আসর",    ar: "العصر" },
+      { key: "maghrib", bn: "মাগরিব", ar: "المغرب" },
+      { key: "isha",    bn: "এশা",    ar: "العشاء" },
+      { key: "jummah",  bn: "জুম'আ",  ar: "الجمعة" }
+    ];
+
+    const HADITH_BOOKS = [
+      { id: "bukhari",  bn: "সহীহ বুখারী",     ar: "صحيح البخاري" },
+      { id: "muslim",   bn: "সহীহ মুসলিম",     ar: "صحيح مسلم" },
+      { id: "abudawud", bn: "সুনান আবু দাউদ",  ar: "سنن أبي داود" },
+      { id: "tirmidhi", bn: "জামে তিরমিযী",    ar: "جامع الترمذي" },
+      { id: "nasai",    bn: "সুনান নাসাঈ",     ar: "سنن النسائي" },
+      { id: "ibnmajah", bn: "সুনান ইবনে মাজাহ", ar: "سنن ابن ماجه" }
+    ];
+
+    const DHIKR_LIST = [
+      { ar: "سُبْحَانَ اللَّهِ", bn: "সুবহানাল্লাহ (আল্লাহ অতি পবিত্র)", target: 33 },
+      { ar: "الْحَمْدُ لِلَّهِ", bn: "আলহামদুলিল্লাহ (সকল প্রশংসা আল্লাহর)", target: 33 },
+      { ar: "اللَّهُ أَكْبَرُ", bn: "আল্লাহু আকবার (আল্লাহ সর্বশ্রেষ্ঠ)", target: 34 },
+      { ar: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ", bn: "আস্তাগফিরুল্লাহাল আজীম (ক্ষমা প্রার্থনা)", target: 100 },
+      { ar: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", bn: "লা ইলাহা ইল্লাল্লাহু ওয়াহদাহু লা শারীকা লাহু", target: 100 },
+      { ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ", bn: "সুবহানাল্লাহি ওয়া বিহামদিহি সুবহানাল্লাহিল আজীম", target: 100 },
+      { ar: "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ", bn: "দরূদ শরীফ (আল্লাহুম্মা সল্লি আলা মুহাম্মাদ)", target: 100 }
+    ];
+
+    const EMPTY_PRAYERS = () => ({
+      top:   { sunrise: "", sunset: "", sehri: "", iftar: "" },
+      jamat: { fajr: "", dhuhr: "", asr: "", maghrib: "", isha: "", jummah: "" },
+      azan:  { fajr: "", dhuhr: "", asr: "", maghrib: "", isha: "", jummah: "" },
+      updatedAt: 0
+    });
+
+    const DEFAULT_SETTINGS = () => ({
+      vipEnabled: false,
+      noticeEnabled: false,
+      noticeText: "",
+      adminWhatsapp: "+8801700000000",
+      welcomeTitle: "নূর-ই-ফিরদাউস-এ স্বাগতম",
+      welcomeBody: "বাংলাদেশের সর্বাধুনিক ও আল্ট্রা-প্রিমিয়াম ইসলামিক প্ল্যাটফর্মে আপনাকে স্বাগতম।",
+      pinHash: simpleHash("786786")
+    });
+
+    const IS_FIREBASE_READY = Boolean(
+      FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.databaseURL && typeof firebase !== "undefined"
+    );
+    let fbDb = null, fbAuth = null, vipLiveRef = null;
+
+    const State = {
+      prayerTimes: EMPTY_PRAYERS(),
+      settings: DEFAULT_SETTINGS(),
+      vipCodes: {},
+      auditLogs: [],
+      isAdminAuthed: false,
+      soundOn: localStorage.getItem("nf_sound") !== "off",
+      themeMode: localStorage.getItem("nf_theme_mode") || "auto",
+      deviceId: getOrCreateDeviceId(),
+      activeVipCode: localStorage.getItem("nf_vip_code") || "",
+      surahList: [],
+      currentSurahData: null,
+      quranFontSize: parseFloat(localStorage.getItem("nf_qfont") || "1.85"),
+      audioPlayer: null,
+      isPlayingFullSurah: false,
+      currentPlayIdx: -1,
+      hadithInfo: null,
+      currentBook: "bukhari",
+      loadedHadiths: [],
+      visibleHadiths: [],
+      tasbihIdx: 0,
+      tasbihCount: parseInt(localStorage.getItem("nf_tcount") || "0", 10),
+      tasbihTarget: 33,
+      tasbihTotal: parseInt(localStorage.getItem("nf_ttotal") || "0", 10),
+      qiblaMap: null,
+      qiblaLat: 23.8103,
+      qiblaLng: 90.4125,
+      qiblaBearing: 277.6,
+      brandTapCount: 0,
+      brandTapTimer: null,
+      pinFailCount: 0,
+      pinLockUntil: 0
+    };
+
+    function escapeHtml(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function simpleHash(str) {
+      let h1 = 0xdeadbeef ^ 1337, h2 = 0x41c6ce57 ^ 1337;
+      for (let i = 0; i < str.length; i++) {
+        const ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+    }
+
+    function copyTextSafe(txt) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).catch(() => fallbackCopy(txt));
+      } else {
+        fallbackCopy(txt);
+      }
+    }
+
+    function fallbackCopy(txt) {
+      const ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    function getOrCreateDeviceId() {
+      let id = localStorage.getItem("nf_device_id");
+      if (!id) {
+        id = "BD-" + Math.random().toString(36).slice(2, 8).toUpperCase() + "-" + Date.now().toString(36).toUpperCase();
+        localStorage.setItem("nf_device_id", id);
+      }
+      return id;
+    }
+
+    function detectDeviceLabel() {
+      const ua = navigator.userAgent || "";
+      if (/iPad|Macintosh/i.test(ua) && "ontouchend" in document) return "iPad Pro";
+      if (/iPhone/i.test(ua)) return "iPhone iOS";
+      if (/Android/i.test(ua)) return window.innerWidth > 720 ? "Android Tab" : "Android Mobile";
+      if (/Mac/i.test(ua)) return "MacBook / Mac";
+      if (/Win/i.test(ua)) return "Windows PC";
+      return "Smart Display";
+    }
+
+    function getBSTDate() {
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      return new Date(utc + (6 * 3600000));
+    }
+
+    function toBnDigits(val) {
+      const map = { "0":"০","1":"১","2":"২","3":"৩","4":"৪","5":"৫","6":"৬","7":"৭","8":"৮","9":"৯" };
+      return String(val).replace(/[0-9]/g, d => map[d]);
+    }
+
+    function formatTime12h(hhmm) {
+      if (!hhmm || !/^\d{2}:\d{2}$/.test(hhmm)) return "";
+      const [hRaw, mRaw] = hhmm.split(":").map(Number);
+      const ampm = hRaw >= 12 ? "PM" : "AM";
+      const h12 = hRaw % 12 || 12;
+      return String(h12).padStart(2, "0") + ":" + String(mRaw).padStart(2, "0") + " " + ampm;
+    }
+
+    function parseMinutes(hhmm) {
+      if (!hhmm || !/^\d{2}:\d{2}$/.test(hhmm)) return null;
+      const [h, m] = hhmm.split(":").map(Number);
+      return h * 60 + m;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove("show"), 3000);
+    }
+
+    const Sound = {
+      ctx: null,
+      play(type = "click") {
+        if (!State.soundOn) return;
+        try {
+          if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (this.ctx.state === "suspended") this.ctx.resume();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
+          if (type === "tasbih") {
+            osc.type = "sine"; osc.frequency.setValueAtTime(680, now);
+            osc.frequency.exponentialRampToValueAtTime(980, now + 0.055);
+            gain.gain.setValueAtTime(0.08, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(now); osc.stop(now + 0.085);
+          } else if (type === "chime") {
+            osc.type = "triangle"; osc.frequency.setValueAtTime(523.25, now);
+            osc.frequency.setValueAtTime(659.25, now + 0.09);
+            osc.frequency.setValueAtTime(783.99, now + 0.18);
+            gain.gain.setValueAtTime(0.09, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(now); osc.stop(now + 0.46);
+          } else {
+            osc.type = "sine"; osc.frequency.setValueAtTime(840, now);
+            osc.frequency.exponentialRampToValueAtTime(520, now + 0.04);
+            gain.gain.setValueAtTime(0.045, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(now); osc.stop(now + 0.055);
+          }
+        } catch (e) {}
+      }
+    };
+
+    function initParticles() {
+      const canvas = document.getElementById("particles-canvas");
+      const ctx = canvas.getContext("2d");
+      let w, h, pts = [];
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        const count = Math.min(58, Math.floor((w * h) / 24000));
+        pts = Array.from({ length: count }, () => ({
+          x: Math.random() * w, y: Math.random() * h,
+          r: Math.random() * 2.1 + 0.6,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: -(Math.random() * 0.35 + 0.12),
+          a: Math.random() * 0.7 + 0.2
+        }));
+      }
+      resize();
+      window.addEventListener("resize", resize);
+      (function frame() {
+        ctx.clearRect(0, 0, w, h);
+        for (const p of pts) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(248, 218, 138, " + p.a + ")";
+          ctx.fill();
+        }
+        requestAnimationFrame(frame);
+      })();
+    }
+
+    const DB = {
+      init() {
+        if (IS_FIREBASE_READY) {
+          firebase.initializeApp(FIREBASE_CONFIG);
+          fbDb = firebase.database();
+          fbAuth = firebase.auth();
+          document.getElementById("sync-label").textContent = "BST ক্লাউড লাইভ";
+
+          fbDb.ref("prayerTimes").on("value", snap => {
+            const val = snap.val();
+            State.prayerTimes = val ? mergePrayers(val) : EMPTY_PRAYERS();
+            renderPrayerBoard();
+            if (State.isAdminAuthed) populateAdminTimeInputs();
+          });
+
+          fbDb.ref("settings").on("value", snap => {
+            State.settings = Object.assign(DEFAULT_SETTINGS(), snap.val() || {});
+            applySettingsUI();
+            enforceAccessControl();
+          });
+
+          fbAuth.onAuthStateChanged(user => {
+            if (!user && State.isAdminAuthed) {
+              State.isAdminAuthed = false;
+              closeModal("admin-panel-modal");
+            }
+          });
+        } else {
+          document.getElementById("sync-label").textContent = "BST টেস্ট মোড";
+          this.loadLocal();
+          window.addEventListener("storage", () => {
+            this.loadLocal();
+            renderPrayerBoard();
+            applySettingsUI();
+            enforceAccessControl();
+            if (State.isAdminAuthed) renderAdminVipList();
+          });
+        }
+      },
+
+      loadLocal() {
+        try {
+          const p = JSON.parse(localStorage.getItem("nf_db_prayers") || "null");
+          State.prayerTimes = p ? mergePrayers(p) : EMPTY_PRAYERS();
+          const s = JSON.parse(localStorage.getItem("nf_db_settings") || "null");
+          State.settings = Object.assign(DEFAULT_SETTINGS(), s || {});
+          State.vipCodes = JSON.parse(localStorage.getItem("nf_db_vip") || "{}");
+          State.auditLogs = JSON.parse(localStorage.getItem("nf_db_logs") || "[]");
+        } catch (e) {}
+      },
+
+      saveLocal() {
+        localStorage.setItem("nf_db_prayers", JSON.stringify(State.prayerTimes));
+        localStorage.setItem("nf_db_settings", JSON.stringify(State.settings));
+        localStorage.setItem("nf_db_vip", JSON.stringify(State.vipCodes));
+        localStorage.setItem("nf_db_logs", JSON.stringify(State.auditLogs.slice(0, 40)));
+      },
+
+      async writePrayerTimes(obj) {
+        obj.updatedAt = Date.now();
+        if (IS_FIREBASE_READY) {
+          await fbDb.ref("prayerTimes").set(obj);
+        } else {
+          State.prayerTimes = mergePrayers(obj);
+          this.saveLocal();
+          renderPrayerBoard();
+        }
+        await this.logAudit("নামাজের সময়সূচি আপডেট করা হয়েছে");
+      },
+
+      async writeSettings(patch) {
+        const merged = Object.assign({}, State.settings, patch);
+        if (IS_FIREBASE_READY) {
+          await fbDb.ref("settings").update(patch);
+        } else {
+          State.settings = merged;
+          this.saveLocal();
+          applySettingsUI();
+          enforceAccessControl();
+        }
+      },
+
+      async writeVipCode(code, data) {
+        if (IS_FIREBASE_READY) {
+          await fbDb.ref("vipCodes/" + code).set(data);
+        } else {
+          if (data === null) delete State.vipCodes[code];
+          else State.vipCodes[code] = data;
+          this.saveLocal();
+          renderAdminVipList();
+          enforceAccessControl();
+        }
+      },
+
+      async getVipCode(code) {
+        if (IS_FIREBASE_READY) {
+          const snap = await fbDb.ref("vipCodes/" + code).once("value");
+          return snap.val();
+        }
+        this.loadLocal();
+        return State.vipCodes[code] || null;
+      },
+
+      subscribeAdminData() {
+        if (IS_FIREBASE_READY) {
+          fbDb.ref("vipCodes").on("value", snap => {
+            State.vipCodes = snap.val() || {};
+            renderAdminVipList();
+          });
+          fbDb.ref("auditLogs").limitToLast(25).on("value", snap => {
+            const raw = snap.val() || {};
+            State.auditLogs = Object.values(raw).sort((a, b) => b.time - a.time);
+            renderAuditLogs();
+          });
+        } else {
+          this.loadLocal();
+          renderAdminVipList();
+          renderAuditLogs();
+        }
+      },
+
+      async logAudit(action) {
+        const entry = { action, time: Date.now() };
+        if (IS_FIREBASE_READY) {
+          await fbDb.ref("auditLogs").push(entry);
+        } else {
+          State.auditLogs.unshift(entry);
+          this.saveLocal();
+          renderAuditLogs();
+        }
+      }
+    };
+
+    function mergePrayers(src) {
+      const base = EMPTY_PRAYERS();
+      return {
+        top: Object.assign(base.top, src.top || {}),
+        jamat: Object.assign(base.jamat, src.jamat || {}),
+        azan: Object.assign(base.azan, src.azan || {}),
+        updatedAt: src.updatedAt || 0
+      };
+    }
+
+    function renderPrayerBoard() {
+      const topHtml = TOP_WAQTS.map(w => {
+        const t = formatTime12h(State.prayerTimes.top[w.key]);
+        return '<div class="mini-waqt-card">' +
+          '<div class="mini-waqt-top"><span class="mini-bn">' + w.icon + ' ' + w.bn + '</span><span class="waqt-arrow mini">' + w.ar + '</span></div>' +
+          '<div class="mini-time"><span>' + (t || "--:--") + '</span><span class="mini-time-sub">' + (t ? "BST" : "অনির্ধারিত") + '</span></div>' +
+          '</div>';
+      }).join("");
+      document.getElementById("top-times-grid").innerHTML = topHtml;
+
+      document.getElementById("jamat-list").innerHTML = MAIN_WAQTS.map(w => {
+        const t = formatTime12h(State.prayerTimes.jamat[w.key]);
+        return '<div class="waqt-row" id="jamat-row-' + w.key + '">' +
+          '<div class="waqt-bn"><span class="waqt-dot"></span>' + w.bn + '</div>' +
+          '<div class="waqt-arrow">' + w.ar + '</div>' +
+          '<div class="waqt-time-pill ' + (t ? "" : "unset") + '">' + (t || "সময় দেওয়া হয়নি") + '</div>' +
+          '</div>';
+      }).join("");
+
+      document.getElementById("azan-list").innerHTML = MAIN_WAQTS.map(w => {
+        const t = formatTime12h(State.prayerTimes.azan[w.key]);
+        return '<div class="waqt-row" id="azan-row-' + w.key + '">' +
+          '<div class="waqt-bn"><span class="waqt-dot"></span>' + w.bn + '</div>' +
+          '<div class="waqt-arrow">' + w.ar + '</div>' +
+          '<div class="waqt-time-pill ' + (t ? "" : "unset") + '">' + (t || "সময় দেওয়া হয়নি") + '</div>' +
+          '</div>';
+      }).join("");
+
+      updateClockAndCountdown();
+    }
+
+    function getAutoWaqtTheme(bstDate) {
+      const mins = bstDate.getHours() * 60 + bstDate.getMinutes();
+      const tFajr = parseMinutes(State.prayerTimes.azan.fajr) ?? 270;
+      const tSun  = parseMinutes(State.prayerTimes.top.sunrise) ?? 370;
+      const tAsr  = parseMinutes(State.prayerTimes.azan.asr) ?? 930;
+      const tMagh = parseMinutes(State.prayerTimes.azan.maghrib) ?? 1070;
+      const tIsha = parseMinutes(State.prayerTimes.azan.isha) ?? 1160;
+
+      if (mins >= tFajr && mins < tSun + 30) return { theme: "fajr", label: "✨ ফজরের ভোরের আভা" };
+      if (mins >= tSun + 30 && mins < tAsr)  return { theme: "dhuhr", label: "☀️ যোহরের পান্না-স্বর্ণ প্রহর" };
+      if (mins >= tAsr && mins < tMagh)      return { theme: "asr", label: "🌤️ আসরের সোনালী বিকেল" };
+      if (mins >= tMagh && mins < tIsha)     return { theme: "maghrib", label: "🌅 মাগরিবের রাজকীয় সন্ধ্যা" };
+      return { theme: "isha", label: "🌙 এশার তারকাময় রাত" };
+    }
+
+    function applyTheme(bst) {
+      const autoInfo = getAutoWaqtTheme(bst || getBSTDate());
+      const badge = document.getElementById("sky-mood-badge");
+      if (State.themeMode === "auto") {
+        document.documentElement.setAttribute("data-theme", autoInfo.theme);
+        badge.textContent = autoInfo.label;
+        document.getElementById("theme-btn").textContent = "🎨 অটো";
+      } else {
+        document.documentElement.setAttribute("data-theme", State.themeMode);
+        const names = { emerald: "💎 পান্না রয়্যাল", obsidian: "🖤 অবসিডিয়ান গোল্ড", fajr: "🌌 ভোরের আকাশ", maghrib: "🌅 গোধূলি রয়্যাল" };
+        badge.textContent = names[State.themeMode] || "✨ লাক্সারি থিম";
+        document.getElementById("theme-btn").textContent = "🎨 ফিক্সড";
+      }
+    }
+
+    function updateClockAndCountdown() {
+      const bst = getBSTDate();
+      const hh = bst.getHours(), mm = bst.getMinutes(), ss = bst.getSeconds();
+      const ampm = hh >= 12 ? "PM" : "AM";
+      const h12 = String(hh % 12 || 12).padStart(2, "0");
+      document.getElementById("master-clock").innerHTML =
+        h12 + ":" + String(mm).padStart(2, "0") + ":" + String(ss).padStart(2, "0") + '<span class="clock-ampm">' + ampm + "</span>";
+
+      const daysBn = ["রবিবার","সোমবার","মঙ্গলবার","বুধবার","বৃহস্পতিবার","শুক্রবার","শনিবার"];
+      const monthsBn = ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+      document.getElementById("bn-gregorian-date").textContent =
+        daysBn[bst.getDay()] + ", " + toBnDigits(bst.getDate()) + " " + monthsBn[bst.getMonth()] + " " + toBnDigits(bst.getFullYear());
+
+      try {
+        const hijri = new Intl.DateTimeFormat("bn-BD-u-ca-islamic", { day: "numeric", month: "long", year: "numeric" }).format(bst);
+        document.getElementById("bn-hijri-date").textContent = hijri + " হিজরি";
+      } catch (e) {
+        document.getElementById("bn-hijri-date").textContent = "ইসলামিক ক্যালেন্ডার";
+      }
+
+      applyTheme(bst);
+
+      const isFriday = bst.getDay() === 5;
+      const order = isFriday
+        ? ["fajr", "jummah", "asr", "maghrib", "isha"]
+        : ["fajr", "dhuhr", "asr", "maghrib", "isha"];
+
+      const nowSecs = hh * 3600 + mm * 60 + ss;
+      const validEvents = [];
+      for (const key of order) {
+        const m = parseMinutes(State.prayerTimes.jamat[key]);
+        if (m !== null) {
+          const wObj = MAIN_WAQTS.find(x => x.key === key);
+          validEvents.push({ key, bn: wObj.bn, secs: m * 60 });
+        }
+      }
+
+      document.querySelectorAll(".waqt-row.is-next").forEach(el => el.classList.remove("is-next"));
+
+      if (!validEvents.length) {
+        document.getElementById("countdown-label").textContent = "পরবর্তী জামাত:";
+        document.getElementById("countdown-timer").textContent = "অ্যাডমিন প্যানেল থেকে সময় সেট করুন";
+        return;
+      }
+
+      let nextEv = validEvents.find(ev => ev.secs > nowSecs);
+      let diff = 0;
+      if (nextEv) {
+        diff = nextEv.secs - nowSecs;
+      } else {
+        nextEv = validEvents[0];
+        diff = (86400 - nowSecs) + nextEv.secs;
+      }
+
+      const dh = Math.floor(diff / 3600);
+      const dm = Math.floor((diff % 3600) / 60);
+      const ds = diff % 60;
+      document.getElementById("countdown-label").textContent = "পরবর্তী জামাত (" + nextEv.bn + "):";
+      document.getElementById("countdown-timer").textContent =
+        toBnDigits(String(dh).padStart(2, "0")) + " ঘণ্টা " + toBnDigits(String(dm).padStart(2, "0")) + " মি. " + toBnDigits(String(ds).padStart(2, "0")) + " সে.";
+
+      const jamRow = document.getElementById("jamat-row-" + nextEv.key);
+      const azRow = document.getElementById("azan-row-" + nextEv.key);
+      if (jamRow) jamRow.classList.add("is-next");
+      if (azRow) azRow.classList.add("is-next");
+    }
+
+    function applySettingsUI() {
+      const s = State.settings;
+      const banner = document.getElementById("live-notice-banner");
+      if (s.noticeEnabled && s.noticeText) {
+        document.getElementById("live-notice-text").textContent = s.noticeText;
+        banner.classList.add("show");
+      } else {
+        banner.classList.remove("show");
+      }
+      document.getElementById("welcome-title-el").textContent = s.welcomeTitle || "নূর-ই-ফিরদাউস-এ স্বাগতম";
+      const waNum = (s.adminWhatsapp || "").replace(/[^0-9]/g, "");
+      const waUrl = waNum ? "https://wa.me/" + waNum + "?text=" + encodeURIComponent("আসসালামু আলাইকুম, নূর-ই-ফিরদাউস VIP অ্যাক্সেস সম্পর্কে জানতে চাই।") : "#";
+      document.getElementById("vip-contact-link").href = waUrl;
+      document.getElementById("kickout-contact").href = waUrl;
+    }
+
+    function detachVipListener() {
+      if (vipLiveRef) { vipLiveRef.off(); vipLiveRef = null; }
+    }
+
+    function triggerKickout(type, customMsg) {
+      closeModal("vip-gate-modal");
+      const iconEl = document.getElementById("kickout-icon");
+      const titleEl = document.getElementById("kickout-title");
+      const msgEl = document.getElementById("kickout-msg");
+
+      if (type === "banned") {
+        iconEl.textContent = "🚫";
+        titleEl.textContent = "অ্যাক্সেস স্থগিত (Banned) করা হয়েছে";
+        msgEl.textContent = customMsg || "দুঃখিত! আপনার প্রিমিয়াম অ্যাক্সেসটি অ্যাডমিন কর্তৃক স্থগিত (Banned) করা হয়েছে। বিস্তারিত জানতে কর্তৃপক্ষের সাথে যোগাযোগ করুন।";
+      } else if (type === "deleted") {
+        iconEl.textContent = "🗑️";
+        titleEl.textContent = "অ্যাক্সেস কোড বাতিল (Deleted) করা হয়েছে";
+        msgEl.textContent = "আপনার অ্যাক্সেস কোডটি অ্যাডমিন কর্তৃক বাতিল বা মুছে ফেলা হয়েছে। পুনরায় প্রবেশ করতে নতুন VIP কোড সংগ্রহ করুন।";
+      } else {
+        iconEl.textContent = "⏳";
+        titleEl.textContent = "সাবস্ক্রিপশনের মেয়াদ শেষ হয়েছে";
+        msgEl.textContent = "আপনার ৬-ডিজিটের VIP অ্যাক্সেস কোডটির মেয়াদ শেষ হয়েছে। নবায়ন করতে অ্যাডমিনের সাথে যোগাযোগ করুন।";
+      }
+      localStorage.removeItem("nf_vip_code");
+      State.activeVipCode = "";
+      document.getElementById("vip-status-btn").style.display = "none";
+      openModal("kickout-modal");
+    }
+
+    function watchActiveVipCode(code) {
+      detachVipListener();
+      if (!code) return;
+
+      const evaluate = (rec) => {
+        if (!State.settings.vipEnabled) {
+          closeModal("vip-gate-modal");
+          closeModal("kickout-modal");
+          return;
+        }
+        if (!rec) return triggerKickout("deleted");
+        if (rec.status === "banned") return triggerKickout("banned", rec.banReason);
+        if (rec.deviceId && rec.deviceId !== State.deviceId) {
+          return triggerKickout("banned", "এই কোডটি অন্য ডিভাইসে স্থানান্তরিত বা রিসেট করা হয়েছে।");
+        }
+        if (rec.expiresAt && Date.now() > rec.expiresAt) return triggerKickout("expired");
+
+        closeModal("vip-gate-modal");
+        closeModal("kickout-modal");
+        document.getElementById("vip-status-btn").style.display = "inline-flex";
+      };
+
+      if (IS_FIREBASE_READY) {
+        vipLiveRef = fbDb.ref("vipCodes/" + code);
+        vipLiveRef.on("value", snap => evaluate(snap.val()));
+      } else {
+        evaluate(State.vipCodes[code] || null);
+      }
+    }
+
+    function enforceAccessControl() {
+      const agreed = localStorage.getItem("nf_terms_agreed") === "yes";
+      if (!agreed) {
+        openModal("welcome-modal");
+        return;
+      }
+
+      if (!State.settings.vipEnabled) {
+        detachVipListener();
+        closeModal("vip-gate-modal");
+        closeModal("kickout-modal");
+        document.getElementById("vip-status-btn").style.display = "none";
+        return;
+      }
+
+      if (!State.activeVipCode) {
+        openModal("vip-gate-modal");
+      } else {
+        watchActiveVipCode(State.activeVipCode);
+      }
+    }
+
+    async function verifyVipCode() {
+      Sound.play("click");
+      const code = document.getElementById("vip-code-input").value.trim();
+      const err = document.getElementById("vip-gate-error");
+      err.textContent = "";
+
+      if (!/^\d{6}$/.test(code)) {
+        err.textContent = "অনুগ্রহ করে সঠিক ৬-ডিজিটের সংখ্যা লিখুন।";
+        return;
+      }
+
+      try {
+        const rec = await DB.getVipCode(code);
+        if (!rec) { err.textContent = "❌ ভুল কোড! এই ৬-ডিজিট কোডটি পাওয়া যায়নি।"; return; }
+        if (rec.status === "banned") { err.textContent = "🚫 এই কোডটি অ্যাডমিন কর্তৃক ব্যান (Banned) করা হয়েছে।"; return; }
+        if (rec.deviceId && rec.deviceId !== State.deviceId) {
+          err.textContent = "🔒 এই কোডটি ইতিমধ্যে অন্য একটি মোবাইলে ব্যবহৃত হয়েছে!";
+          return;
+        }
+        if (rec.expiresAt && Date.now() > rec.expiresAt) {
+          err.textContent = "⏳ এই কোডটির মেয়াদ শেষ হয়ে গেছে।";
+          return;
+        }
+
+        if (!rec.deviceId) {
+          const now = Date.now();
+          const days = Number(rec.durationDays || 30);
+          const updated = Object.assign({}, rec, {
+            deviceId: State.deviceId,
+            activatedAt: now,
+            expiresAt: now + (days * 86400000)
+          });
+          await DB.writeVipCode(code, updated);
+        }
+
+        State.activeVipCode = code;
+        localStorage.setItem("nf_vip_code", code);
+        Sound.play("chime");
+        showToast("👑 VIP অ্যাক্সেস সফলভাবে চালু হয়েছে!");
+        watchActiveVipCode(code);
+      } catch (e) {
+        err.textContent = "সংযোগ ত্রুটি! ইন্টারনেট বা Firebase Rules চেক করুন।";
+      }
+    }
+
+    async function loadSurahList() {
+      if (State.surahList.length) return;
+      try {
+        const res = await fetch("https://api.alquran.cloud/v1/surah");
+        const json = await res.json();
+        State.surahList = json.data || [];
+        renderSurahList(State.surahList);
+        updateBookmarkCounts();
+      } catch (e) {
+        document.getElementById("surah-grid").innerHTML =
+          '<div style="color:var(--danger); padding:16px;">কুরআন লোড করা যায়নি। ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করুন।</div>';
+      }
+    }
+
+    function renderSurahList(list) {
+      document.getElementById("surah-grid").innerHTML = list.map(s =>
+        '<div class="surah-item" onclick="NF.openSurah(' + s.number + ')">' +
+        '<div style="display:flex; align-items:center; gap:10px;">' +
+        '<div class="surah-num">' + toBnDigits(s.number) + '</div>' +
+        '<div><div style="font-weight:700; font-size:0.96rem;">' + escapeHtml(s.englishName) + '</div>' +
+        '<div style="font-size:0.75rem; color:var(--text-muted);">' + escapeHtml(s.englishNameTranslation) + ' • ' + toBnDigits(s.numberOfAyahs) + ' আয়াত</div></div></div>' +
+        '<div class="surah-ar-name">' + escapeHtml(s.name) + '</div></div>'
+      ).join("");
+    }
+
+    async function openSurah(num) {
+      Sound.play("click");
+      stopAudio();
+      document.getElementById("quran-list-view").style.display = "none";
+      document.getElementById("quran-reader-view").style.display = "block";
+      const box = document.getElementById("ayahs-container");
+      box.innerHTML = '<div style="text-align:center; padding:32px; color:var(--gold-1);">✨ সম্পূর্ণ সূরা, অনুবাদ, তাফসীর ও অডিও লোড হচ্ছে...</div>';
+
+      try {
+        const [edRes, tafRes] = await Promise.all([
+          fetch("https://api.alquran.cloud/v1/surah/" + num + "/editions/quran-uthmani,bn.bengali,en.sahih,ar.alafasy").then(r => r.json()),
+          fetch("https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@v1.2.3/tafsir/bn-tafisr-fathul-majid/" + num + ".json").then(r => r.ok ? r.json() : null).catch(() => null)
+        ]);
+
+        const [arEd, bnEd, enEd, auEd] = edRes.data;
+        const tafMap = new Map();
+        if (tafRes && Array.isArray(tafRes.ayahs)) {
+          tafRes.ayahs.forEach(t => tafMap.set(t.ayah, t.text));
+        }
+
+        State.currentSurahData = {
+          number: num, name: arEd.englishName, arName: arEd.name,
+          ayahs: arEd.ayahs.map((a, idx) => ({
+            numInSurah: a.numberInSurah,
+            ar: a.text,
+            bn: bnEd.ayahs[idx] ? bnEd.ayahs[idx].text : "",
+            en: enEd.ayahs[idx] ? enEd.ayahs[idx].text : "",
+            audio: auEd.ayahs[idx] ? auEd.ayahs[idx].audio : "",
+            tafsir: tafMap.get(a.numberInSurah) || "এই আয়াতের বাংলা তাফসীর এই মুহূর্তে পাওয়া যায়নি।"
+          }))
+        };
+
+        document.getElementById("reader-surah-title").textContent = toBnDigits(num) + ". " + arEd.englishName;
+        document.getElementById("reader-surah-ar").textContent = arEd.name;
+        document.documentElement.style.setProperty("--quran-size", State.quranFontSize + "rem");
+
+        const bismillah = (num !== 1 && num !== 9)
+          ? '<div style="text-align:center; font-family:var(--font-quran); font-size:1.75rem; color:var(--gold-1); margin-bottom:14px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>'
+          : "";
+
+        box.innerHTML = bismillah + State.currentSurahData.ayahs.map((a, idx) =>
+          '<div class="ayah-card" id="ayah-card-' + idx + '">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px; flex-wrap:wrap;">' +
+          '<span class="pill-badge">আয়াত ' + toBnDigits(a.numInSurah) + '</span>' +
+          '<div style="display:flex; gap:6px;">' +
+          '<button class="btn-outline" style="padding:5px 10px; font-size:0.78rem;" onclick="NF.playSingleAyah(' + idx + ')">▶ তিলাওয়াত</button>' +
+          '<button class="btn-outline" style="padding:5px 10px; font-size:0.78rem;" onclick="NF.toggleTafsir(' + idx + ')">📜 তাফসীর</button>' +
+          '<button class="btn-outline" style="padding:5px 10px; font-size:0.78rem;" onclick="NF.bookmarkAyah(' + num + ',' + a.numInSurah + ')">🔖</button>' +
+          '</div></div>' +
+          '<div class="ayah-arabic">' + escapeHtml(a.ar) + '</div>' +
+          '<div class="ayah-bn"><b>বাংলা:</b> ' + escapeHtml(a.bn) + '</div>' +
+          '<div class="ayah-en"><b>English:</b> ' + escapeHtml(a.en) + '</div>' +
+          '<div class="tafsir-box" id="tafsir-' + idx + '"><b style="color:var(--gold-1);">📖 তাফসীর ফাতহুল মাজীদ:</b><br/>' + escapeHtml(a.tafsir) + '</div>' +
+          '</div>'
+        ).join("");
+      } catch (e) {
+        box.innerHTML = '<div style="color:var(--danger); padding:20px;">সূরা লোড করতে সমস্যা হয়েছে। ইন্টারনেট চেক করে আবার চেষ্টা করুন।</div>';
+      }
+    }
+
+    function stopAudio() {
+      if (State.audioPlayer) { State.audioPlayer.pause(); State.audioPlayer = null; }
+      State.isPlayingFullSurah = false;
+      State.currentPlayIdx = -1;
+      document.querySelectorAll(".ayah-card.playing").forEach(el => el.classList.remove("playing"));
+    }
+
+    function playSingleAyah(idx, autoNext) {
+      if (!State.currentSurahData) return;
+      const a = State.currentSurahData.ayahs[idx];
+      if (!a || !a.audio) { showToast("অডিও পাওয়া যায়নি"); return; }
+      if (State.audioPlayer) State.audioPlayer.pause();
+      document.querySelectorAll(".ayah-card.playing").forEach(el => el.classList.remove("playing"));
+      const card = document.getElementById("ayah-card-" + idx);
+      if (card) { card.classList.add("playing"); card.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      State.currentPlayIdx = idx;
+      State.audioPlayer = new Audio(a.audio);
+      State.audioPlayer.play().catch(() => showToast("অডিও চালু করতে আবার ট্যাপ করুন"));
+      State.audioPlayer.onended = () => {
+        if (card) card.classList.remove("playing");
+        if (autoNext && State.isPlayingFullSurah && idx + 1 < State.currentSurahData.ayahs.length) {
+          playSingleAyah(idx + 1, true);
+        } else {
+          State.isPlayingFullSurah = false;
+        }
+      };
+    }
+
+    async function fetchJsonFallback(urls) {
+      for (const u of urls) {
+        try {
+          const r = await fetch(u);
+          if (r.ok) return await r.json();
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    async function initHadithLibrary() {
+      renderHadithBookBar();
+      if (!State.hadithInfo) {
+        State.hadithInfo = await fetchJsonFallback([
+          "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/info.json"
+        ]);
+      }
+      selectHadithBook(State.currentBook);
+    }
+
+    function renderHadithBookBar() {
+      document.getElementById("hadith-books-bar").innerHTML = HADITH_BOOKS.map(b =>
+        '<button class="book-chip ' + (State.currentBook === b.id ? "active" : "") + '" onclick="NF.selectHadithBook(\'' + b.id + '\')">' + b.bn + '</button>'
+      ).join("");
+    }
+
+    async function selectHadithBook(bookId) {
+      State.currentBook = bookId;
+      renderHadithBookBar();
+      const sel = document.getElementById("hadith-section-select");
+      sel.innerHTML = '<option value="">অধ্যায় লোড হচ্ছে...</option>';
+
+      const bookMeta = State.hadithInfo && State.hadithInfo[bookId] && State.hadithInfo[bookId].metadata;
+      const sections = (bookMeta && bookMeta.sections) ? bookMeta.sections : { "1": "অধ্যায় ১" };
+      const entries = Object.entries(sections).filter(([k, v]) => k !== "0" && v && String(v).trim() !== "");
+
+      sel.innerHTML = entries.map(([k, v]) =>
+        '<option value="' + escapeHtml(k) + '">অধ্যায় ' + toBnDigits(k) + ': ' + escapeHtml(v) + '</option>'
+      ).join("");
+
+      if (entries.length) await loadHadithSection();
+    }
+
+    async function loadHadithSection() {
+      const sec = document.getElementById("hadith-section-select").value;
+      if (!sec) return;
+      const box = document.getElementById("hadith-container");
+      box.innerHTML = '<div style="text-align:center; padding:28px; color:var(--gold-1);">✨ সহীহ হাদিস (বাংলা ও আরবি) লোড হচ্ছে...</div>';
+
+      const b = State.currentBook;
+      const base = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions";
+      const [bnData, arData] = await Promise.all([
+        fetchJsonFallback([
+          base + "/ben-" + b + "/sections/" + sec + ".min.json",
+          base + "/ben-" + b + "/sections/" + sec + ".json",
+          base + "/eng-" + b + "/sections/" + sec + ".min.json"
+        ]),
+        fetchJsonFallback([
+          base + "/ara-" + b + "/sections/" + sec + ".min.json",
+          base + "/ara-" + b + "/sections/" + sec + ".json"
+        ])
+      ]);
+
+      if (!bnData || !Array.isArray(bnData.hadiths)) {
+        box.innerHTML = '<div style="color:var(--danger); padding:18px;">এই অধ্যায়টি লোড করা যায়নি। অন্য অধ্যায় বা ইন্টারনেট চেক করুন।</div>';
+        return;
+      }
+
+      const arMap = new Map();
+      if (arData && Array.isArray(arData.hadiths)) {
+        arData.hadiths.forEach(h => arMap.set(h.hadithnumber, h.text));
+      }
+
+      State.loadedHadiths = bnData.hadiths
+        .filter(h => (h.text && h.text.trim()) || arMap.get(h.hadithnumber))
+        .map(h => ({
+          num: h.hadithnumber,
+          bn: h.text || "(বাংলা অনুবাদ পাওয়া যায়নি)",
+          ar: arMap.get(h.hadithnumber) || "",
+          grades: h.grades || [],
+          ref: h.reference || {}
+        }));
+
+      renderHadithList(State.loadedHadiths);
+    }
+
+    function renderHadithList(list) {
+      State.visibleHadiths = list.slice(0, 60);
+      const bookObj = HADITH_BOOKS.find(x => x.id === State.currentBook);
+      const box = document.getElementById("hadith-container");
+      if (!State.visibleHadiths.length) {
+        box.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted);">কোনো হাদিস পাওয়া যায়নি।</div>';
+        return;
+      }
+      box.innerHTML = State.visibleHadiths.map((h, idx) => {
+        const gTxt = (h.grades && h.grades[0])
+          ? h.grades[0].grade + " (" + (h.grades[0].name || "তাহকীক") + ")"
+          : (["bukhari","muslim"].includes(State.currentBook) ? "সহীহ (সহীহাইন)" : "তাহকীককৃত");
+        const isWeak = /daif|weak|যঈফ|মুনকার/i.test(gTxt);
+        return '<div class="hadith-card">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">' +
+          '<div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">' +
+          '<span class="pill-badge">' + bookObj.bn + ' • হাদিস #' + toBnDigits(h.num) + '</span>' +
+          '<span class="grade-badge ' + (isWeak ? "weak" : "") + '">✦ ' + escapeHtml(gTxt) + '</span></div>' +
+          '<div style="display:flex; gap:6px;">' +
+          '<button class="btn-outline" style="padding:5px 10px; font-size:0.78rem;" onclick="NF.openHadithShareCard(' + idx + ')">🖼️ শেয়ার কার্ড</button>' +
+          '<button class="btn-outline" style="padding:5px 10px; font-size:0.78rem;" onclick="NF.bookmarkHadith(' + idx + ')">🔖</button>' +
+          '</div></div>' +
+          (h.ar ? '<div class="hadith-ar">' + escapeHtml(h.ar) + '</div>' : '') +
+          '<div class="hadith-bn">' + escapeHtml(h.bn) + '</div></div>';
+      }).join("");
+    }
+
+    async function lookupHadithByNumber() {
+      const num = prompt("কত নম্বর হাদিস খুঁজতে চান? (ইংরেজি সংখ্যা লিখুন, যেমন: 1 বা 52):");
+      if (!num || !/^\d+$/.test(num.trim())) return;
+      const n = num.trim();
+      const b = State.currentBook;
+      const base = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions";
+      showToast("হাদিস #" + n + " খোঁজা হচ্ছে...");
+      const [bnRes, arRes] = await Promise.all([
+        fetchJsonFallback([base + "/ben-" + b + "/" + n + ".min.json", base + "/ben-" + b + "/" + n + ".json", base + "/eng-" + b + "/" + n + ".min.json"]),
+        fetchJsonFallback([base + "/ara-" + b + "/" + n + ".min.json", base + "/ara-" + b + "/" + n + ".json"])
+      ]);
+      const hBn = bnRes && bnRes.hadiths && bnRes.hadiths[0];
+      const hAr = arRes && arRes.hadiths && arRes.hadiths[0];
+      if (!hBn && !hAr) { showToast("এই নম্বরের হাদিস পাওয়া যায়নি!"); return; }
+      State.loadedHadiths = [{
+        num: n, bn: hBn ? hBn.text : "", ar: hAr ? hAr.text : "",
+        grades: (hBn && hBn.grades) || [], ref: (hBn && hBn.reference) || {}
+      }];
+      renderHadithList(State.loadedHadiths);
+    }
+
+    function openHadithShareCard(idx) {
+      Sound.play("click");
+      const h = State.visibleHadiths[idx];
+      if (!h) return;
+      const bookObj = HADITH_BOOKS.find(x => x.id === State.currentBook);
+      const canvas = document.getElementById("share-canvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width, H = canvas.height;
+
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, "#041c16"); grad.addColorStop(0.5, "#0a3327"); grad.addColorStop(1, "#020f0b");
+      ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+
+      ctx.strokeStyle = "#e8be63"; ctx.lineWidth = 6;
+      ctx.strokeRect(32, 32, W - 64, H - 64);
+      ctx.strokeStyle = "rgba(232,190,99,0.35)"; ctx.lineWidth = 2;
+      ctx.strokeRect(46, 46, W - 92, H - 92);
+
+      ctx.fillStyle = "#fff1b8"; ctx.textAlign = "center";
+      ctx.font = "bold 36px 'Hind Siliguri', sans-serif";
+      ctx.fillText("✦ নূর-ই-ফিরদাউস ✦", W / 2, 115);
+
+      ctx.fillStyle = "#e8be63"; ctx.font = "600 26px 'Hind Siliguri', sans-serif";
+      ctx.fillText(bookObj.bn + " — হাদিস নং " + toBnDigits(h.num), W / 2, 162);
+
+      ctx.fillStyle = "#f8f5ec"; ctx.font = "500 28px 'Hind Siliguri', sans-serif";
+      const words = (h.bn || "").slice(0, 560).split(/\s+/);
+      let line = "", y = 245;
+      for (const word of words) {
+        const test = line + word + " ";
+        if (ctx.measureText(test).width > W - 150 && line) {
+          ctx.fillText(line.trim(), W / 2, y);
+          line = word + " "; y += 46;
+          if (y > H - 150) { line += "..."; break; }
+        } else { line = test; }
+      }
+      if (line && y <= H - 140) ctx.fillText(line.trim(), W / 2, y);
+
+      ctx.fillStyle = "#e8be63"; ctx.font = "600 22px 'Hind Siliguri', sans-serif";
+      ctx.fillText("Noor-e-Firdaus • Royal Islamic Platform Bangladesh", W / 2, H - 78);
+
+      openModal("share-card-modal");
+    }
+
+    function initTasbih() {
+      document.getElementById("dhikr-presets").innerHTML = DHIKR_LIST.map((d, i) =>
+        '<button class="book-chip ' + (State.tasbihIdx === i ? "active" : "") + '" onclick="NF.selectDhikr(' + i + ')">' + d.bn.split(" (")[0] + '</button>'
+      ).join("");
+      updateTasbihUI();
+    }
+
+    function updateTasbihUI() {
+      const d = DHIKR_LIST[State.tasbihIdx];
+      document.getElementById("dhikr-ar-display").textContent = d.ar;
+      document.getElementById("dhikr-bn-display").textContent = d.bn;
+      document.getElementById("tasbih-count").textContent = toBnDigits(State.tasbihCount);
+      document.getElementById("tasbih-total").textContent = toBnDigits(State.tasbihTotal);
+      document.getElementById("tasbih-target-label").textContent = State.tasbihTarget ? toBnDigits(State.tasbihTarget) : "∞";
+
+      const circ = 691;
+      const pct = State.tasbihTarget ? Math.min(1, State.tasbihCount / State.tasbihTarget) : ((State.tasbihCount % 33) / 33);
+      document.getElementById("tasbih-progress-circle").style.strokeDashoffset = circ * (1 - pct);
+    }
+
+    function computeQibla(lat, lng) {
+      const kLat = 21.4225 * Math.PI / 180, kLng = 39.8262 * Math.PI / 180;
+      const uLat = lat * Math.PI / 180, uLng = lng * Math.PI / 180;
+      const dLng = kLng - uLng;
+      const y = Math.sin(dLng);
+      const x = Math.cos(uLat) * Math.tan(kLat) - Math.sin(uLat) * Math.cos(dLng);
+      const bearing = ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
+
+      const R = 6371;
+      const dLat = kLat - uLat;
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(uLat) * Math.cos(kLat) * Math.sin(dLng / 2) ** 2;
+      const dist = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return { bearing, dist };
+    }
+
+    function renderQiblaMap(lat, lng) {
+      const { bearing, dist } = computeQibla(lat, lng);
+      State.qiblaBearing = bearing;
+      document.getElementById("qibla-deg").textContent = bearing.toFixed(1) + "°";
+      document.getElementById("qibla-dist").textContent = toBnDigits(Math.round(dist).toLocaleString()) + " কি.মি.";
+      document.getElementById("qibla-needle").style.transform = "rotate(" + bearing + "deg)";
+
+      if (typeof L === "undefined") return;
+      if (!State.qiblaMap) {
+        State.qiblaMap = L.map("qibla-map").setView([lat, lng], 4);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap"
+        }).addTo(State.qiblaMap);
+      } else {
+        State.qiblaMap.eachLayer(l => { if (l instanceof L.Marker || l instanceof L.Polyline) State.qiblaMap.removeLayer(l); });
+      }
+
+      const kaaba = [21.4225, 39.8262];
+      const user = [lat, lng];
+      L.marker(user).addTo(State.qiblaMap).bindPopup("📍 আপনার অবস্থান").openPopup();
+      L.marker(kaaba).addTo(State.qiblaMap).bindPopup("🕋 পবিত্র কাবা শরীফ (মক্কা)");
+      const line = L.polyline([user, kaaba], { color: "#e8be63", weight: 4, dashArray: "8, 6" }).addTo(State.qiblaMap);
+      State.qiblaMap.fitBounds(line.getBounds(), { padding: [35, 35] });
+      setTimeout(() => State.qiblaMap.invalidateSize(), 180);
+    }
+
+    function initQiblaGPS() {
+      Sound.play("click");
+      if (!navigator.geolocation) {
+        renderQiblaMap(State.qiblaLat, State.qiblaLng);
+        return;
+      }
+      document.getElementById("qibla-status").textContent = "📡 GPS লোকেশন শনাক্ত করা হচ্ছে...";
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          State.qiblaLat = pos.coords.latitude;
+          State.qiblaLng = pos.coords.longitude;
+          document.getElementById("qibla-status").textContent =
+            "✅ সঠিক লোকেশন পাওয়া গেছে (" + State.qiblaLat.toFixed(4) + ", " + State.qiblaLng.toFixed(4) + ")";
+          renderQiblaMap(State.qiblaLat, State.qiblaLng);
+        },
+        () => {
+          document.getElementById("qibla-status").textContent = "লোকেশন পারমিশন দেওয়া হয়নি — ঢাকা, বাংলাদেশ অনুযায়ী কিবলা দেখানো হচ্ছে।";
+          renderQiblaMap(23.8103, 90.4125);
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    const AI_KB = [
+      {
+        keys: ["মন খারাপ", "দুশ্চিন্তা", "চিন্তা", "হতাশ", "mon kharap", "tension", "sad", "depress"],
+        title: "💚 দুশ্চিন্তা ও মন খারাপের মাসনূন দুআ",
+        ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",
+        bn: "উচ্চারণ: আল্লাহুম্মা ইন্নী আউযুবিকা মিনাল হাম্মি ওয়াল হাযান।\nঅর্থ: হে আল্লাহ! আমি আপনার নিকট দুশ্চিন্তা ও পেরেশানি থেকে আশ্রয় চাই।\n\n📖 কুরআন (সূরা রা'দ, আয়াত ২৮): “জেনে রাখো, আল্লাহর স্মরণেই অন্তর প্রশান্তি লাভ করে।”\n📚 রেফারেন্স: সহীহ বুখারী ৬৩৬৯।"
+      },
+      {
+        keys: ["ঋণ", "রিন", "টাকা", "দেনা", "rin", "debt", "loan"],
+        title: "💎 ঋণ মুক্তির অসাধারণ দুআ",
+        ar: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+        bn: "উচ্চারণ: আল্লাহুম্মাকফিনী বিহালালিকা আন হারামিকা, ওয়া আগনিনী বিফাদলিকা আম্মান সিওয়াক।\nঅর্থ: হে আল্লাহ! আপনার হালাল রিজিক দিয়ে আমাকে হারাম থেকে যথেষ্ট করুন এবং আপনার অনুগ্রহে আমাকে অন্য সবার মুখাপেক্ষী হওয়া থেকে মুক্ত করুন।\n📚 রেফারেন্স: জামে তিরমিযী ৩৫৬৩ (হাসান)।"
+      },
+      {
+        keys: ["মা", "বাবা", "পিতা", "মাতা", "ma", "baba", "parents"],
+        title: "👑 মা-বাবার জন্য কুরআনের শ্রেষ্ঠ দুআ",
+        ar: "رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+        bn: "উচ্চারণ: রাব্বির হামহুমা কামা রাব্বায়ানী সাগীরা।\nঅর্থ: হে আমার রব! তাদের উভয়ের প্রতি দয়া করুন, যেমন তারা আমাকে শৈশবে লালন-পালন করেছেন।\n📖 রেফারেন্স: সূরা বনী ইসরাঈল, আয়াত ২৪। সহীহ বুখারীতে রাসূল (সা.) মায়ের খেদমতকে তিনগুণ বেশি অগ্রাধিকার দিয়েছেন।"
+      },
+      {
+        keys: ["রিজিক", "রিজক", "বরকত", "rizik", "rizq", "barkat", "income"],
+        title: "✨ হালাল রিজিক ও বরকতের আমল ও দুআ",
+        ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا",
+        bn: "ফজরের সালাম ফেরানোর পর এই দুআটি পড়ুন:\nঅর্থ: হে আল্লাহ! আমি আপনার কাছে উপকারী ইলম, পবিত্র (হালাল) রিজিক এবং কবুলযোগ্য আমল প্রার্থনা করছি।\n📚 রেফারেন্স: সুনান ইবনে মাজাহ ৯২৫ (সহীহ)। পাশাপাশি বেশি বেশি ইস্তেগফার ও আত্মীয়তার সম্পর্ক বজায় রাখলে রিজিকে বরকত হয়।"
+      },
+      {
+        keys: ["তাওবা", "গুনাহ", "ক্ষমা", "মাফ", "tauba", "tawbah", "gunah", "forgive"],
+        title: "🌙 সাইয়্যিদুল ইস্তেগফার ও তাওবা",
+        ar: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+        bn: "📖 সূরা যুমার, আয়াত ৫৩: “হে আমার বান্দারা, যারা নিজেদের ওপর জুলুম করেছ, তোমরা আল্লাহর রহমত থেকে নিরাশ হয়ো না। নিশ্চয় আল্লাহ সমস্ত গুনাহ ক্ষমা করে দেন।”\nগুনাহের জন্য অনুতপ্ত হয়ে, গুনাহ ছেড়ে দিয়ে এবং আর না করার দৃঢ় প্রতিজ্ঞা করে আল্লাহর কাছে ক্ষমা চাইলে আল্লাহ অবশ্যই মাফ করেন।"
+      },
+      {
+        keys: ["ঘুম", "স্বপ্ন", "রাত", "ghum", "sleep", "night"],
+        title: "🌌 ঘুমানোর আগে সুন্নাহ আমল",
+        ar: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+        bn: "১. অজু করে ডান কাতে শোয়া ও বিসমিকা আল্লাহুম্মা আমূতু ওয়া আহইয়া পড়া (বুখারী ৬৩২৪)।\n২. আয়াতুল কুরসী পড়া (সকাল পর্যন্ত আল্লাহর পক্ষ থেকে একজন ফেরেশতা হেফাজত করেন — বুখারী ২৩১১)।\n৩. সূরা ইখলাস, ফালাক ও নাস ৩ বার পড়ে শরীরে ফুঁ দেওয়া।"
+      },
+      {
+        keys: ["অসুস্থ", "রোগ", "সুস্থ", "শিফা", "sick", "shifa", "disease"],
+        title: "🌿 রোগমুক্তি ও শিফার দুআ",
+        ar: "أَذْهِبِ الْبَاسَ رَبَّ النَّاسِ، اشْفِ وَأَنْتَ الشَّافِي، لَا شِفَاءَ إِلَّا شِفَاؤُكَ",
+        bn: "উচ্চারণ: আযহিবিল বাসা রাব্বান-নাস, ইশফি ওয়া আনতাশ শাফী, লা শিফাআ ইল্লা শিফাউক।\nঅর্থ: হে মানুষের রব! রোগ দূর করে দিন, আরোগ্য দান করুন; আপনিই আরোগ্যদানকারী।\n📚 রেফারেন্স: সহীহ বুখারী ৫৭৪৩।"
+      },
+      {
+        keys: ["নামাজ", "জামাত", "ফজর", "সালাত", "namaz", "prayer", "fajr", "salat"],
+        title: "🕌 জামাতে নামাজ ও ফজরের ফযিলত",
+        ar: "صَلَاةُ الْجَمَاعَةِ تَفْضُلُ صَلَاةَ الْفَذِّ بِسَبْعٍ وَعِشْرِينَ دَرَجَةً",
+        bn: "রাসূলুল্লাহ (সা.) বলেছেন: “জামাতে নামাজ আদায় করা একাকী নামাজ আদায়ের চেয়ে ২৭ গুণ বেশি মর্যাদাপূর্ণ।” (সহীহ বুখারী ৬৪৫)।\nএছাড়া এশা ও ফজর জামাতে আদায় করলে সারা রাত ইবাদতের সওয়াব পাওয়া যায় (সহীহ মুসলিম ৬৫৬)।"
+      }
+    ];
+
+    function initNoorAI() {
+      const prompts = ["মন খারাপ হলে দুআ", "ঋণ মুক্তির দুআ", "মা-বাবার জন্য দুআ", "রিজিক ও বরকত", "তাওবা ও ক্ষমা", "ঘুমানোর সুন্নাহ", "রোগমুক্তির দুআ", "জামাতে নামাজের ফযিলত"];
+      document.getElementById("ai-quick-prompts").innerHTML = prompts.map(p =>
+        '<button class="book-chip" onclick="NF.quickAskAI(\'' + p + '\')">✨ ' + p + '</button>'
+      ).join("");
+
+      const log = document.getElementById("ai-chat-log");
+      if (!log.innerHTML.trim()) {
+        log.innerHTML = '<div class="ai-bubble bot">আস-সালামু আলাইকুম! আমি <b>নূর AI</b> ✨। আপনি বাংলা বা বাংলিশে যেকোনো ইসলামিক বিষয়, দুআ, কুরআনের সূরা বা হাদিস সম্পর্কে প্রশ্ন করতে পারেন।</div>';
+      }
+    }
+
+    function askNoorAI(customQ) {
+      const inp = document.getElementById("ai-input");
+      const q = (customQ || inp.value).trim();
+      if (!q) return;
+      Sound.play("click");
+      inp.value = "";
+      const log = document.getElementById("ai-chat-log");
+      log.innerHTML += '<div class="ai-bubble user">' + escapeHtml(q) + '</div>';
+
+      const ql = q.toLowerCase();
+      const match = AI_KB.find(item => item.keys.some(k => ql.includes(k)));
+      let replyHtml = "";
+      if (match) {
+        replyHtml = '<b style="color:var(--gold-1);">' + match.title + '</b><div style="font-family:var(--font-ar); font-size:1.45rem; color:var(--gold-1); direction:rtl; text-align:right; margin:8px 0;">' + match.ar + '</div><div style="white-space:pre-line;">' + escapeHtml(match.bn) + '</div>';
+      } else {
+        const surahHit = State.surahList.find(s =>
+          s.englishName.toLowerCase().includes(ql) || String(s.number) === ql
+        );
+        if (surahHit) {
+          replyHtml = '📖 আপনি কি <b>সূরা ' + escapeHtml(surahHit.englishName) + ' (' + escapeHtml(surahHit.name) + ')</b> খুঁজছেন? এতে মোট ' + toBnDigits(surahHit.numberOfAyahs) + 'টি আয়াত রয়েছে।<br/><button class="btn-gold" style="margin-top:8px; padding:7px 14px;" onclick="NF.switchTab(\'quran\'); NF.openSurah(' + surahHit.number + ');">📖 এখনই সূরাটি পড়ুন</button>';
+        } else {
+          replyHtml = 'আপনার প্রশ্নটি ("' + escapeHtml(q) + '") আমাদের তাৎক্ষণিক দুআ ভাণ্ডারে সরাসরি পাওয়া যায়নি। তবে আপনি উপরের <b>✨ দ্রুত টপিক</b> থেকে বেছে নিতে পারেন অথবা <b>📖 কুরআন</b> ও <b>📚 হাদিস</b> ট্যাবে গিয়ে সরাসরি কিতাব থেকে খুঁজতে পারেন।';
+        }
+      }
+
+      log.innerHTML += '<div class="ai-bubble bot">' + replyHtml + '</div>';
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function openAdminAuth() {
+      Sound.play("click");
+      if (State.isAdminAuthed) { openAdminPanel(); return; }
+      const hint = document.getElementById("admin-mode-hint");
+      if (IS_FIREBASE_READY) {
+        hint.innerHTML = "🟢 <b>লাইভ ক্লাউড সিকিউরিটি চালু:</b> আপনার Firebase ইমেইল, পাসওয়ার্ড এবং ৬-ডিজিট পিন দিন।";
+      } else {
+        hint.innerHTML = "🧪 <b>টেস্ট/ডেমো মোড:</b> এখনই টেস্ট করতে দিন — ইমেইল: <b>admin@noorefirdaus.bd</b> | পাসওয়ার্ড: <b>Noor@2026</b> | পিন: <b>786786</b>";
+      }
+      document.getElementById("adm-auth-err").textContent = "";
+      openModal("admin-auth-modal");
+    }
+
+    async function adminLogin() {
+      const err = document.getElementById("adm-auth-err");
+      err.textContent = "";
+      if (Date.now() < State.pinLockUntil) {
+        const left = Math.ceil((State.pinLockUntil - Date.now()) / 1000);
+        err.textContent = "🔒 ৩ বার ভুল পিন দেওয়ায় " + left + " সেকেন্ডের জন্য লক করা হয়েছে।";
+        return;
+      }
+
+      const email = document.getElementById("adm-email").value.trim();
+      const pass = document.getElementById("adm-pass").value;
+      const pin = document.getElementById("adm-pin").value.trim();
+
+      if (!email || !pass || !/^\d{6}$/.test(pin)) {
+        err.textContent = "ইমেইল, পাসওয়ার্ড এবং ৬-ডিজিটের পিন সঠিকভাবে দিন।";
+        return;
+      }
+
+      const expectedHash = State.settings.pinHash || simpleHash("786786");
+      if (simpleHash(pin) !== expectedHash) {
+        State.pinFailCount++;
+        if (State.pinFailCount >= 3) {
+          State.pinLockUntil = Date.now() + 60000;
+          State.pinFailCount = 0;
+        }
+        err.textContent = "❌ ৬-ডিজিট সিকিউরিটি পিন ভুল হয়েছে!";
+        return;
+      }
+
+      if (IS_FIREBASE_READY) {
+        try {
+          await fbAuth.signInWithEmailAndPassword(email, pass);
+        } catch (e) {
+          err.textContent = "❌ Firebase ইমেইল বা পাসওয়ার্ড সঠিক নয়!";
+          return;
+        }
+      } else {
+        if (email !== "admin@noorefirdaus.bd" || pass !== "Noor@2026") {
+          err.textContent = "❌ টেস্ট মোডের ইমেইল (admin@noorefirdaus.bd) বা পাসওয়ার্ড (Noor@2026) ভুল!";
+          return;
+        }
+      }
+
+      State.pinFailCount = 0;
+      State.isAdminAuthed = true;
+      document.getElementById("adm-pass").value = "";
+      document.getElementById("adm-pin").value = "";
+      closeModal("admin-auth-modal");
+      Sound.play("chime");
+      openAdminPanel();
+    }
+
+    function openAdminPanel() {
+      DB.subscribeAdminData();
+      document.getElementById("adm-cloud-badge").textContent = IS_FIREBASE_READY
+        ? "🟢 গ্লোবাল লাইভ ক্লাউড সিঙ্ক (মিলিসেকেন্ড আপডেট চালু)"
+        : "🧪 লোকাল টেস্ট মোড (Firebase বসালেই সারাদেশে লাইভ হবে)";
+      populateAdminTimeInputs();
+      document.getElementById("adm-vip-toggle").checked = Boolean(State.settings.vipEnabled);
+      updateVipModeDesc();
+      document.getElementById("adm-notice-toggle").checked = Boolean(State.settings.noticeEnabled);
+      document.getElementById("adm-notice-text").value = State.settings.noticeText || "";
+      document.getElementById("adm-whatsapp").value = State.settings.adminWhatsapp || "";
+      document.getElementById("adm-welcome-title").value = State.settings.welcomeTitle || "";
+      renderAdminVipList();
+      renderAuditLogs();
+      openModal("admin-panel-modal");
+    }
+
+    function populateAdminTimeInputs() {
+      for (const w of TOP_WAQTS) {
+        const el = document.getElementById("inp-top-" + w.key);
+        if (el) el.value = State.prayerTimes.top[w.key] || "";
+      }
+      for (const w of MAIN_WAQTS) {
+        const ej = document.getElementById("inp-jamat-" + w.key);
+        const ea = document.getElementById("inp-azan-" + w.key);
+        if (ej) ej.value = State.prayerTimes.jamat[w.key] || "";
+        if (ea) ea.value = State.prayerTimes.azan[w.key] || "";
+      }
+    }
+
+    async function publishPrayerTimes() {
+      Sound.play("chime");
+      const next = EMPTY_PRAYERS();
+      for (const w of TOP_WAQTS) next.top[w.key] = document.getElementById("inp-top-" + w.key).value || "";
+      for (const w of MAIN_WAQTS) {
+        next.jamat[w.key] = document.getElementById("inp-jamat-" + w.key).value || "";
+        next.azan[w.key] = document.getElementById("inp-azan-" + w.key).value || "";
+      }
+      await DB.writePrayerTimes(next);
+      showToast("🚀 নতুন সময়সূচি লাইভ পাবলিশ হয়েছে!");
+    }
+
+    function updateVipModeDesc() {
+      const on = document.getElementById("adm-vip-toggle").checked;
+      document.getElementById("vip-mode-desc").textContent = on
+        ? "👑 VIP মোড চালু আছে — ৬-ডিজিট কোড ছাড়া কেউ ঢুকতে পারবে না।"
+        : "🟢 ফ্রি পাবলিক মোড চালু — সারা বাংলাদেশের সবাই বিনা কোডে ফ্রিতে ব্যবহার করতে পারবে।";
+    }
+
+    async function toggleVipMode() {
+      const on = document.getElementById("adm-vip-toggle").checked;
+      updateVipModeDesc();
+      await DB.writeSettings({ vipEnabled: on });
+      await DB.logAudit(on ? "VIP কোড লক মোড চালু করা হয়েছে" : "১০০% ফ্রি পাবলিক মোড চালু করা হয়েছে");
+      showToast(on ? "👑 VIP কোড মোড চালু হয়েছে!" : "🟢 পুরো ওয়েবসাইট এখন সবার জন্য ১০০% ফ্রি!");
+    }
+
+    async function generateVipCode() {
+      Sound.play("chime");
+      const label = document.getElementById("vip-new-label").value.trim() || "VIP ইউজার";
+      const durVal = document.getElementById("vip-new-duration").value;
+      const days = durVal === "custom"
+        ? Math.max(1, parseInt(document.getElementById("vip-custom-days").value || "30", 10))
+        : parseInt(durVal, 10);
+
+      let code = "";
+      for (let tries = 0; tries < 25; tries++) {
+        const candidate = String(Math.floor(100000 + Math.random() * 900000));
+        if (!State.vipCodes[candidate]) { code = candidate; break; }
+      }
+      if (!code) { showToast("আবার চেষ্টা করুন"); return; }
+
+      await DB.writeVipCode(code, {
+        code, label, durationDays: days,
+        createdAt: Date.now(), activatedAt: null, expiresAt: null,
+        deviceId: null, status: "active", banReason: ""
+      });
+      await DB.logAudit("নতুন VIP কোড তৈরি: " + code + " (" + label + ", " + days + " দিন)");
+      document.getElementById("vip-new-label").value = "";
+      showToast("✅ নতুন কোড তৈরি হয়েছে: " + code);
+    }
+
+    function renderAdminVipList() {
+      const searchEl = document.getElementById("vip-search-input");
+      const q = (searchEl ? searchEl.value : "").trim().toLowerCase();
+      const list = Object.values(State.vipCodes || {})
+        .filter(c => !q || c.code.includes(q) || (c.label || "").toLowerCase().includes(q))
+        .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+      const box = document.getElementById("adm-vip-list");
+      if (!list.length) {
+        box.innerHTML = '<div style="text-align:center; padding:18px; color:var(--text-muted);">এখনো কোনো ৬-ডিজিট কোড তৈরি করা হয়নি।</div>';
+        return;
+      }
+
+      box.innerHTML = list.map(c => {
+        const isExpired = c.expiresAt && Date.now() > c.expiresAt;
+        let stClass = "unused", stText = "অব্যবহৃত";
+        if (c.status === "banned") { stClass = "banned"; stText = "ব্যান করা হয়েছে"; }
+        else if (isExpired) { stClass = "expired"; stText = "মেয়াদ শেষ"; }
+        else if (c.deviceId) {
+          const leftDays = Math.max(0, Math.ceil((c.expiresAt - Date.now()) / 86400000));
+          stClass = "active"; stText = "সক্রিয় (" + toBnDigits(leftDays) + " দিন বাকি)";
+        }
+
+        const safeCode = escapeHtml(c.code);
+        return '<div class="vip-code-card">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">' +
+          '<div><div class="vip-code-num">' + safeCode + '</div>' +
+          '<div style="font-size:0.84rem; color:var(--text-soft);">👤 ' + escapeHtml(c.label) + ' • মেয়াদ: ' + (c.durationDays >= 36500 ? "আজীবন" : toBnDigits(c.durationDays) + " দিন") + '</div>' +
+          (c.deviceId ? '<div style="font-size:0.72rem; color:var(--text-muted);">📱 লক ডিভাইস: ' + escapeHtml(c.deviceId) + '</div>' : '') +
+          '</div><span class="status-pill ' + stClass + '">' + stText + '</span></div>' +
+          '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
+          '<button class="btn-outline" style="padding:6px 11px; font-size:0.78rem;" onclick="NF.copyVipCode(\'' + safeCode + '\')">📋 কপি</button>' +
+          (c.deviceId ? '<button class="btn-outline" style="padding:6px 11px; font-size:0.78rem;" onclick="NF.resetVipDevice(\'' + safeCode + '\')">📱 ডিভাইস রিসেট</button>' : '') +
+          (c.status === "banned"
+            ? '<button class="btn-outline" style="padding:6px 11px; font-size:0.78rem;" onclick="NF.setVipBan(\'' + safeCode + '\', false)">✅ আনব্যান</button>'
+            : '<button class="btn-danger" style="padding:6px 11px; font-size:0.78rem;" onclick="NF.setVipBan(\'' + safeCode + '\', true)">🚫 ব্যান</button>') +
+          '<button class="btn-danger" style="padding:6px 11px; font-size:0.78rem;" onclick="NF.deleteVipCode(\'' + safeCode + '\')">🗑️ ডিলিট</button>' +
+          '</div></div>';
+      }).join("");
+    }
+
+    function renderAuditLogs() {
+      const box = document.getElementById("adm-audit-log");
+      if (!box) return;
+      if (!State.auditLogs.length) { box.textContent = "কোনো লগ নেই।"; return; }
+      box.innerHTML = State.auditLogs.map(l => {
+        const dt = new Date(l.time).toLocaleString("bn-BD");
+        return '<div style="padding:4px 0; border-bottom:1px dashed rgba(232,190,99,0.14);">✦ ' + escapeHtml(l.action) + ' <span style="color:var(--text-muted);">(' + escapeHtml(dt) + ')</span></div>';
+      }).join("");
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add("open"); }
+    function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+    function updateBookmarkCounts() {
+      const q = JSON.parse(localStorage.getItem("nf_q_bm") || "[]");
+      const h = JSON.parse(localStorage.getItem("nf_h_bm") || "[]");
+      document.getElementById("q-bm-count").textContent = toBnDigits(q.length);
+      document.getElementById("h-bm-count").textContent = toBnDigits(h.length);
+    }
+
+    window.NF = {
+      switchTab(tab) {
+        Sound.play("click");
+        document.querySelectorAll(".view-section").forEach(v => v.classList.remove("active"));
+        document.getElementById("view-" + tab).classList.add("active");
+        document.querySelectorAll("[data-nav]").forEach(b => b.classList.toggle("active", b.dataset.nav === tab));
+        if (tab === "quran") loadSurahList();
+        if (tab === "hadith") initHadithLibrary();
+        if (tab === "qibla") renderQiblaMap(State.qiblaLat, State.qiblaLng);
+        if (tab === "ai") { initNoorAI(); loadSurahList(); }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+
+      toggleSound() {
+        State.soundOn = !State.soundOn;
+        localStorage.setItem("nf_sound", State.soundOn ? "on" : "off");
+        document.getElementById("sound-btn").textContent = State.soundOn ? "🔊" : "🔇";
+        if (State.soundOn) Sound.play("chime");
+        showToast(State.soundOn ? "🔊 লাক্সারি সাউন্ড চালু" : "🔇 সাউন্ড মিউট করা হয়েছে");
+      },
+
+      cycleTheme() {
+        Sound.play("click");
+        const order = ["auto", "emerald", "obsidian", "fajr", "maghrib"];
+        State.themeMode = order[(order.indexOf(State.themeMode) + 1) % order.length];
+        localStorage.setItem("nf_theme_mode", State.themeMode);
+        applyTheme();
+        showToast("🎨 থিম পরিবর্তন হয়েছে");
+      },
+
+      toggleTvMode() {
+        Sound.play("click");
+        document.body.classList.toggle("tv-mode");
+        if (document.body.classList.contains("tv-mode") && document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else if (!document.body.classList.contains("tv-mode") && document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+      },
+
+      openTermsModal(readonly) {
+        if (readonly) document.getElementById("terms-checkbox").checked = true;
+        openModal("welcome-modal");
+      },
+
+      acceptWelcome() {
+        if (!document.getElementById("terms-checkbox").checked) {
+          showToast("অনুগ্রহ করে প্রথমে নীতিমালায় টিক চিহ্ন দিন");
+          return;
+        }
+        Sound.play("chime");
+        localStorage.setItem("nf_terms_agreed", "yes");
+        closeModal("welcome-modal");
+        enforceAccessControl();
+      },
+
+      verifyVipCode,
+      retryFromKickout() { closeModal("kickout-modal"); openModal("vip-gate-modal"); },
+      showVipInfo() {
+        if (confirm("আপনার সক্রিয় VIP কোড: " + State.activeVipCode + "\n\nআপনি কি লগআউট করতে চান?")) {
+          localStorage.removeItem("nf_vip_code");
+          State.activeVipCode = "";
+          detachVipListener();
+          enforceAccessControl();
+        }
+      },
+
+      filterSurahs() {
+        const q = document.getElementById("surah-search").value.trim().toLowerCase();
+        renderSurahList(State.surahList.filter(s =>
+          s.englishName.toLowerCase().includes(q) || s.name.includes(q) || String(s.number).includes(q)
+        ));
+      },
+      openSurah,
+      backToSurahList() {
+        stopAudio();
+        document.getElementById("quran-reader-view").style.display = "none";
+        document.getElementById("quran-list-view").style.display = "block";
+      },
+      changeQuranFont(delta) {
+        State.quranFontSize = Math.max(1.2, Math.min(3.2, State.quranFontSize + delta));
+        localStorage.setItem("nf_qfont", State.quranFontSize);
+        document.documentElement.style.setProperty("--quran-size", State.quranFontSize + "rem");
+      },
+      playSingleAyah(i) { State.isPlayingFullSurah = false; playSingleAyah(i, false); },
+      togglePlayFullSurah() {
+        if (!State.currentSurahData) return;
+        State.isPlayingFullSurah = true;
+        playSingleAyah(Math.max(0, State.currentPlayIdx), true);
+      },
+      stopAudio,
+      toggleTafsir(i) {
+        Sound.play("click");
+        document.getElementById("tafsir-" + i).classList.toggle("open");
+      },
+      bookmarkAyah(surah, ayah) {
+        const list = JSON.parse(localStorage.getItem("nf_q_bm") || "[]");
+        const key = surah + ":" + ayah;
+        if (!list.includes(key)) list.unshift(key);
+        localStorage.setItem("nf_q_bm", JSON.stringify(list));
+        updateBookmarkCounts();
+        showToast("🔖 সূরা " + toBnDigits(surah) + ", আয়াত " + toBnDigits(ayah) + " বুকমার্ক হয়েছে");
+      },
+      showQuranBookmarks() {
+        const list = JSON.parse(localStorage.getItem("nf_q_bm") || "[]");
+        if (!list.length) { showToast("এখনো কোনো আয়াত বুকমার্ক করা হয়নি"); return; }
+        const pick = prompt("বুকমার্ককৃত আয়াত (সূরা:আয়াত):\n" + list.join(", ") + "\n\nযে সূরা খুলতে চান তার নম্বর লিখুন:");
+        if (pick && /^\d+$/.test(pick.trim())) openSurah(parseInt(pick.trim(), 10));
+      },
+
+      selectHadithBook, loadHadithSection, lookupHadithByNumber, openHadithShareCard,
+      filterLoadedHadiths() {
+        const q = document.getElementById("hadith-filter-input").value.trim().toLowerCase();
+        renderHadithList(State.loadedHadiths.filter(h =>
+          String(h.num).includes(q) || (h.bn || "").toLowerCase().includes(q) || (h.ar || "").includes(q)
+        ));
+      },
+      bookmarkHadith(idx) {
+        const h = State.visibleHadiths[idx];
+        if (!h) return;
+        const list = JSON.parse(localStorage.getItem("nf_h_bm") || "[]");
+        const tag = State.currentBook + " #" + h.num;
+        if (!list.includes(tag)) list.unshift(tag);
+        localStorage.setItem("nf_h_bm", JSON.stringify(list));
+        updateBookmarkCounts();
+        showToast("🔖 হাদিসটি সংরক্ষিত হয়েছে");
+      },
+      showHadithBookmarks() {
+        const list = JSON.parse(localStorage.getItem("nf_h_bm") || "[]");
+        alert(list.length ? "আপনার সংরক্ষিত হাদিসসমূহ:\n\n" + list.join("\n") : "এখনো কোনো হাদিস সংরক্ষণ করা হয়নি।");
+      },
+      downloadShareCard() {
+        const link = document.createElement("a");
+        link.download = "Noor-e-Firdaus-Hadith-" + Date.now() + ".png";
+        link.href = document.getElementById("share-canvas").toDataURL("image/png");
+        link.click();
+        showToast("🖼️ হাদিস কার্ড সেভ হয়েছে!");
+      },
+
+      selectDhikr(i) {
+        Sound.play("click");
+        State.tasbihIdx = i;
+        State.tasbihTarget = DHIKR_LIST[i].target;
+        State.tasbihCount = 0;
+        initTasbih();
+      },
+      tapTasbih() {
+        Sound.play("tasbih");
+        if (navigator.vibrate) navigator.vibrate(18);
+        State.tasbihCount++; State.tasbihTotal++;
+        localStorage.setItem("nf_tcount", State.tasbihCount);
+        localStorage.setItem("nf_ttotal", State.tasbihTotal);
+        const orb = document.getElementById("tasbih-orb");
+        orb.classList.add("tapped"); setTimeout(() => orb.classList.remove("tapped"), 110);
+        if (State.tasbihTarget && State.tasbihCount === State.tasbihTarget) {
+          Sound.play("chime");
+          if (navigator.vibrate) navigator.vibrate([40, 40, 80]);
+          showToast("মাশাআল্লাহ! জিকিরের লক্ষ্য পূর্ণ হয়েছে ✨");
+        }
+        updateTasbihUI();
+      },
+      setTasbihTarget(t) { State.tasbihTarget = t; updateTasbihUI(); },
+      resetTasbih() { State.tasbihCount = 0; localStorage.setItem("nf_tcount", "0"); updateTasbihUI(); },
+
+      initQiblaGPS,
+      enableCompassSensor() {
+        const handler = (ev) => {
+          const heading = ev.webkitCompassHeading != null ? ev.webkitCompassHeading : (ev.alpha != null ? (360 - ev.alpha) : null);
+          if (heading == null) return;
+          document.getElementById("compass-rose").style.transform = "rotate(" + (-heading) + "deg)";
+          document.getElementById("qibla-needle").style.transform = "rotate(" + (State.qiblaBearing - heading) + "deg)";
+        };
+        if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+          DeviceOrientationEvent.requestPermission().then(res => {
+            if (res === "granted") { window.addEventListener("deviceorientation", handler, true); showToast("🧭 লাইভ কম্পাস চালু হয়েছে"); }
+          }).catch(() => showToast("কম্পাস পারমিশন পাওয়া যায়নি"));
+        } else {
+          window.addEventListener("deviceorientationabsolute", handler, true);
+          window.addEventListener("deviceorientation", handler, true);
+          showToast("🧭 কম্পাস সেন্সর চালু (ফোনটি সমতলে ঘোরান)");
+        }
+      },
+
+      askNoorAI,
+      quickAskAI(q) { askNoorAI(q); },
+
+      openAdminAuth, adminLogin, closeModal, publishPrayerTimes, toggleVipMode, generateVipCode, renderAdminVipList,
+      switchAdminTab(tab) {
+        Sound.play("click");
+        document.querySelectorAll(".admin-tab").forEach(b => b.classList.toggle("active", b.dataset.admtab === tab));
+        document.querySelectorAll(".admin-pane").forEach(p => p.classList.remove("active"));
+        document.getElementById("adm-pane-" + tab).classList.add("active");
+      },
+      fillTestSampleTimes() {
+        const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+        set("inp-top-sunrise", "06:18"); set("inp-top-sunset", "17:12"); set("inp-top-sehri", "05:00"); set("inp-top-iftar", "17:15");
+        set("inp-azan-fajr", "05:05"); set("inp-azan-dhuhr", "12:45"); set("inp-azan-asr", "15:45"); set("inp-azan-maghrib", "17:15"); set("inp-azan-isha", "18:45"); set("inp-azan-jummah", "12:45");
+        set("inp-jamat-fajr", "05:30"); set("inp-jamat-dhuhr", "13:15"); set("inp-jamat-asr", "16:05"); set("inp-jamat-maghrib", "17:20"); set("inp-jamat-isha", "19:15"); set("inp-jamat-jummah", "13:30");
+        showToast("⚡ টেস্ট টাইম ফর্মে বসেছে — এখন নিচে 'লাইভ পাবলিশ করুন' চাপুন!");
+      },
+      clearAllTimes() {
+        if (!confirm("সব ওয়াক্তের সময় মুছে ফেলতে চান?")) return;
+        DB.writePrayerTimes(EMPTY_PRAYERS());
+        populateAdminTimeInputs();
+        showToast("🗑️ সব সময় মুছে ফেলা হয়েছে");
+      },
+      savePreset() {
+        const name = prompt("প্রিসেটের নাম দিন (যেমন: শীতকাল / রমজান):");
+        if (!name) return;
+        const presets = JSON.parse(localStorage.getItem("nf_presets") || "{}");
+        presets[name] = State.prayerTimes;
+        localStorage.setItem("nf_presets", JSON.stringify(presets));
+        showToast('💾 "' + name + '" প্রিসেট সেভ হয়েছে');
+      },
+      loadPreset() {
+        const presets = JSON.parse(localStorage.getItem("nf_presets") || "{}");
+        const keys = Object.keys(presets);
+        if (!keys.length) { showToast("কোনো সেভ করা প্রিসেট নেই"); return; }
+        const pick = prompt("কোন প্রিসেট লোড করবেন?\n" + keys.join(", "));
+        if (pick && presets[pick]) {
+          State.prayerTimes = mergePrayers(presets[pick]);
+          populateAdminTimeInputs();
+          showToast("📂 লোড হয়েছে — পাবলিশ বাটন চাপুন!");
+        }
+      },
+      onDurationSelect() {
+        const isCustom = document.getElementById("vip-new-duration").value === "custom";
+        document.getElementById("vip-custom-days-wrap").style.display = isCustom ? "block" : "none";
+      },
+      copyVipCode(code) {
+        const rec = State.vipCodes[code];
+        const label = rec ? rec.label : "VIP ইউজার";
+        const txt = "নূর-ই-ফিরদাউস VIP অ্যাক্সেস\nনাম: " + label + "\n৬-ডিজিট কোড: " + code + "\n(বিঃদ্রঃ এই কোডটি শুধুমাত্র ১টি ডিভাইসেই ব্যবহার করা যাবে)";
+        copyTextSafe(txt);
+        showToast("📋 কোড " + code + " কপি হয়েছে!");
+      },
+      async resetVipDevice(code) {
+        const rec = State.vipCodes[code];
+        if (!rec || !confirm("কোড " + code + "-এর ডিভাইস লক রিসেট করতে চান?")) return;
+        await DB.writeVipCode(code, Object.assign({}, rec, { deviceId: null }));
+        await DB.logAudit("কোড " + code + " ডিভাইস রিসেট করা হয়েছে");
+        showToast("📱 ডিভাইস লক রিসেট হয়েছে");
+      },
+      async setVipBan(code, shouldBan) {
+        const rec = State.vipCodes[code];
+        if (!rec) return;
+        let reason = "";
+        if (shouldBan) {
+          reason = prompt("ব্যান করার কারণ লিখুন (খালি রাখলে ডিফল্ট মেসেজ দেখাবে):") || "";
+        }
+        await DB.writeVipCode(code, Object.assign({}, rec, { status: shouldBan ? "banned" : "active", banReason: reason }));
+        await DB.logAudit(shouldBan ? "কোড " + code + " ব্যান করা হয়েছে" : "কোড " + code + " আনব্যান করা হয়েছে");
+        showToast(shouldBan ? "🚫 ইনস্ট্যান্ট ব্যান কার্যকর হয়েছে!" : "✅ কোড আনব্যান হয়েছে");
+      },
+      async deleteVipCode(code) {
+        if (!confirm("কোড " + code + " স্থায়ীভাবে মুছে ফেলবেন? ওই ইউজার সাথে সাথে লগআউট হয়ে যাবে!")) return;
+        await DB.writeVipCode(code, null);
+        await DB.logAudit("কোড " + code + " ডিলিট করা হয়েছে");
+        showToast("🗑️ কোড ডিলিট হয়েছে ও ইউজার লগআউট হয়েছে");
+      },
+      async saveGeneralSettings() {
+        await DB.writeSettings({
+          noticeEnabled: document.getElementById("adm-notice-toggle").checked,
+          noticeText: document.getElementById("adm-notice-text").value.trim(),
+          adminWhatsapp: document.getElementById("adm-whatsapp").value.trim(),
+          welcomeTitle: document.getElementById("adm-welcome-title").value.trim() || "নূর-ই-ফিরদাউস-এ স্বাগতম"
+        });
+        await DB.logAudit("নোটিশ ও জেনারেল সেটিংস আপডেট করা হয়েছে");
+        showToast("💾 সেটিংস সফলভাবে সেভ হয়েছে!");
+      },
+      async changeAdminPin() {
+        const np = document.getElementById("adm-new-pin").value.trim();
+        if (!/^\d{6}$/.test(np)) { showToast("অবশ্যই ৬ ডিজিটের সংখ্যা দিন!"); return; }
+        await DB.writeSettings({ pinHash: simpleHash(np) });
+        await DB.logAudit("অ্যাডমিন ৬-ডিজিট সিকিউরিটি পিন পরিবর্তন করা হয়েছে");
+        document.getElementById("adm-new-pin").value = "";
+        showToast("🔐 নতুন ৬-ডিজিট সিকিউরিটি পিন সেট হয়েছে!");
+      },
+      async adminLogout() {
+        if (IS_FIREBASE_READY && fbAuth) await fbAuth.signOut().catch(() => {});
+        State.isAdminAuthed = false;
+        closeModal("admin-panel-modal");
+        showToast("🔐 অ্যাডমিন প্যানেল থেকে নিরাপদে লগআউট হয়েছেন");
+      }
+    };
+
+    document.getElementById("device-tag").textContent = detectDeviceLabel();
+    document.getElementById("sound-btn").textContent = State.soundOn ? "🔊" : "🔇";
+
+    document.getElementById("brand-trigger").addEventListener("click", () => {
+      State.brandTapCount++;
+      clearTimeout(State.brandTapTimer);
+      State.brandTapTimer = setTimeout(() => { State.brandTapCount = 0; }, 1600);
+      if (State.brandTapCount >= 5) {
+        State.brandTapCount = 0;
+        openAdminAuth();
+      }
+    });
+    if (window.location.hash === "#royal-admin") {
+      setTimeout(() => openAdminAuth(), 450);
+    }
+
+    initParticles();
+    initTasbih();
+    DB.init();
+    renderPrayerBoard();
+    applySettingsUI();
+    enforceAccessControl();
+    updateBookmarkCounts();
+    setInterval(updateClockAndCountdown, 1000);
+  })();
+  </script>
+</body>
+</html>
