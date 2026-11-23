@@ -31,7 +31,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:var(--bn);col
 .pat{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23E8BE63' stroke-width='.9'%3E%3Cpolygon points='40,4 50,30 76,40 50,50 40,76 30,50 4,40 30,30'/%3E%3Ccircle cx='40' cy='40' r='16'/%3E%3C/g%3E%3C/svg%3E");background-size:88px 88px}
 .shell{position:relative;z-index:2;max-width:1220px;margin:0 auto;padding:12px 13px calc(92px + env(safe-area-inset-bottom))}
 .hdr{position:sticky;top:8px;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:20px;background:var(--cardS);border:1px solid var(--bd);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.48);margin-bottom:14px}
-.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;touch-action:manipulation}
 .crest{width:40px;height:40px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,rgba(255,241,184,.18),rgba(179,130,40,.32));border:1px solid var(--bdH);display:grid;place-items:center;box-shadow:0 0 18px var(--glow);animation:flt 4s ease-in-out infinite}
 .btitle{font-size:1.12rem;font-weight:700;line-height:1.15;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g1));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .bsub{font-size:.7rem;color:var(--mut);display:flex;align-items:center;gap:5px}
@@ -85,8 +85,6 @@ body.tv .clk{font-size:clamp(3.5rem,9vw,6.2rem)}
 body.tv .wbn{font-size:1.4rem}
 body.tv .wtm{font-size:1.35rem;padding:8px 16px}
 body.tv .warr{font-size:1.3rem;min-width:105px}
-.tvx{display:none;position:fixed;top:12px;right:12px;z-index:90}
-body.tv .tvx{display:inline-flex}
 .card{border-radius:20px;padding:16px;background:var(--card);border:1px solid var(--bd);backdrop-filter:blur(15px);box-shadow:0 16px 38px rgba(0,0,0,.42);margin-bottom:15px}
 .shd{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .inp,.sel,.txa{width:100%;padding:11px 13px;border-radius:12px;background:rgba(0,0,0,.38);border:1px solid var(--bd);color:var(--txt);font-family:var(--bn);font-size:.92rem;outline:none}
@@ -94,6 +92,8 @@ body.tv .tvx{display:inline-flex}
 .sel option{background:#0a1f1a;color:#fff}
 .bgold{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));color:#151004;font-family:var(--bn);font-size:.9rem;font-weight:700;box-shadow:0 6px 18px var(--glow);transition:.22s}
 .bgold:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.tvx{display:none!important;position:fixed;top:12px;right:12px;z-index:90}
+body.tv .tvx{display:inline-flex!important}
 .bout{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 12px;border-radius:11px;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--g1);font-family:var(--bn);font-size:.84rem;font-weight:600;transition:.2s}
 .bout:hover{background:rgba(232,190,99,.16);border-color:var(--bdH)}
 .bdng{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 12px;border-radius:11px;border:1px solid rgba(255,93,108,.45);background:rgba(255,93,108,.15);color:#ff8e99;cursor:pointer;font-family:var(--bn);font-size:.82rem;font-weight:700}
@@ -585,7 +585,8 @@ function enforce(){
   if(!S.vcode)om("m-vip");else watchVip(S.vcode);
 }
 
-const logAct=a=>HAS_FB&&db.ref("auditLogs").push({action:a,time:Date.now()});
+const logAct=a=>HAS_FB&&db.ref("auditLogs").push({action:a,time:Date.now()}).catch(()=>{});
+const fbErr=e=>toast("❌ Firebase এরর: "+((e&&e.message)||"Database Rules চেক করুন"));
 
 function fillAdmInputs(){
   TOP.forEach(w=>{const e=$("it-"+w.k);if(e)e.value=S.p.top[w.k]||""});
@@ -717,20 +718,20 @@ window.NF={
   async alogout(){if(auth)await auth.signOut().catch(()=>{});S.adm=false;cm("m-adm");toast("🔐 লগআউট সম্পন্ন")},
   atab(t){Snd.p();document.querySelectorAll(".atab").forEach(b=>b.classList.toggle("on",b.dataset.at===t));document.querySelectorAll(".apn").forEach(p=>p.classList.remove("on"));$("ap-"+t).classList.add("on")},
   sampleT(){const f=(i,v)=>$(i).value=v;f("it-sunrise","06:18");f("it-sunset","17:12");f("it-sehri","05:00");f("it-iftar","17:15");f("ia-fajr","05:05");f("ia-dhuhr","12:45");f("ia-asr","15:45");f("ia-maghrib","17:15");f("ia-isha","18:45");f("ia-jummah","12:45");f("ij-fajr","05:30");f("ij-dhuhr","13:15");f("ij-asr","16:05");f("ij-maghrib","17:20");f("ij-isha","19:15");f("ij-jummah","13:30");toast("⚡ স্যাম্পল বসেছে — এখন পাবলিশ চাপুন!")},
-  async pubT(){Snd.p("c");const n=emptyP();TOP.forEach(w=>n.top[w.k]=$("it-"+w.k).value||"");MAIN.forEach(w=>{n.jamat[w.k]=$("ij-"+w.k).value||"";n.azan[w.k]=$("ia-"+w.k).value||""});n.updatedAt=Date.now();await db.ref("prayerTimes").set(n);logAct("নামাজের সময় পাবলিশ করা হয়েছে");toast("🚀 সারা বাংলাদেশে লাইভ আপডেট হয়েছে!")},
-  async clrT(){if(!confirm("সব সময় মুছে ফেলবেন?"))return;await db.ref("prayerTimes").set(emptyP());fillAdmInputs();logAct("সব সময় মুছে ফেলা হয়েছে");toast("🗑️ সব সময় মুছে ফেলা হয়েছে")},
+  async pubT(){try{Snd.p("c");const n=emptyP();TOP.forEach(w=>n.top[w.k]=$("it-"+w.k).value||"");MAIN.forEach(w=>{n.jamat[w.k]=$("ij-"+w.k).value||"";n.azan[w.k]=$("ia-"+w.k).value||""});n.updatedAt=Date.now();await db.ref("prayerTimes").set(n);logAct("নামাজের সময় পাবলিশ করা হয়েছে");toast("🚀 সারা বাংলাদেশে লাইভ আপডেট হয়েছে!")}catch(e){fbErr(e)}},
+  async clrT(){if(!confirm("সব সময় মুছে ফেলবেন?"))return;try{await db.ref("prayerTimes").set(emptyP());fillAdmInputs();logAct("সব সময় মুছে ফেলা হয়েছে");toast("🗑️ সব সময় মুছে ফেলা হয়েছে")}catch(e){fbErr(e)}},
   savePr(){const n=prompt("প্রিসেটের নাম (যেমন: শীতকাল):");if(!n)return;const p=JSON.parse(localStorage.getItem("nf_pr")||"{}");p[n]=S.p;localStorage.setItem("nf_pr",JSON.stringify(p));toast("💾 সেভ হয়েছে")},
   loadPr(){const p=JSON.parse(localStorage.getItem("nf_pr")||"{}"),ks=Object.keys(p);if(!ks.length){toast("কোনো প্রিসেট নেই");return}const k=prompt("কোনটি লোড করবেন?\n"+ks.join(", "));if(k&&p[k]){S.p=mergeP(p[k]);fillAdmInputs();toast("📂 লোড হয়েছে — পাবলিশ চাপুন!")}},
-  async vtog(){const on=$("vtog").checked;$("vdesc").textContent=on?"👑 VIP মোড চালু — কোড ছাড়া কেউ ঢুকতে পারবে না।":"🟢 ফ্রি পাবলিক মোড চালু — সবাই বিনা কোডে ফ্রিতে ব্যবহার করতে পারবে।";await db.ref("settings").update({vipEnabled:on});logAct(on?"VIP মোড চালু":"ফ্রি মোড চালু");toast(on?"👑 VIP মোড চালু!":"🟢 ওয়েবসাইট এখন ১০০% ফ্রি!")},
+  async vtog(){try{const on=$("vtog").checked;$("vdesc").textContent=on?"👑 VIP মোড চালু — কোড ছাড়া কেউ ঢুকতে পারবে না।":"🟢 ফ্রি পাবলিক মোড চালু — সবাই বিনা কোডে ফ্রিতে ব্যবহার করতে পারবে।";await db.ref("settings").update({vipEnabled:on});logAct(on?"VIP মোড চালু":"ফ্রি মোড চালু");toast(on?"👑 VIP মোড চালু!":"🟢 ওয়েবসাইট এখন ১০০% ফ্রি!")}catch(e){fbErr(e)}},
   vdurC(){$("vcusw").style.display=$("vdur").value==="custom"?"block":"none"},
-  async vgen(){Snd.p("c");const lbl=$("vlbl").value.trim()||"VIP ইউজার",dv=$("vdur").value,days=dv==="custom"?Math.max(1,parseInt($("vcus").value||"30",10)):parseInt(dv,10);let cd="";for(let i=0;i<25;i++){const x=String(Math.floor(100000+Math.random()*900000));if(!S.vips[x]){cd=x;break}}if(!cd)return;await db.ref("vipCodes/"+cd).set({code:cd,label:lbl,durationDays:days,createdAt:Date.now(),activatedAt:null,expiresAt:null,deviceId:null,status:"active",banReason:""});logAct("নতুন কোড: "+cd);$("vlbl").value="";toast("✅ নতুন কোড: "+cd)},
+  async vgen(){try{Snd.p("c");const lbl=$("vlbl").value.trim()||"VIP ইউজার",dv=$("vdur").value,days=dv==="custom"?Math.max(1,parseInt($("vcus").value||"30",10)):parseInt(dv,10);let cd="";for(let i=0;i<25;i++){const x=String(Math.floor(100000+Math.random()*900000));if(!S.vips[x]){cd=x;break}}if(!cd)return;await db.ref("vipCodes/"+cd).set({code:cd,label:lbl,durationDays:days,createdAt:Date.now(),activatedAt:null,expiresAt:null,deviceId:null,status:"active",banReason:""});logAct("নতুন কোড: "+cd);$("vlbl").value="";toast("✅ নতুন কোড: "+cd)}catch(e){fbErr(e)}},
   vlist:renderVips,
   vcpy(c){const r=S.vips[c];copyTxt("নূর-ই-ফিরদাউস VIP\nনাম: "+(r?r.label:"ইউজার")+"\nকোড: "+c+"\n(১ কোড = ১ ফোন)");toast("📋 কোড "+c+" কপি হয়েছে!")},
-  async vrst(c){const r=S.vips[c];if(!r||!confirm("ডিভাইস রিসেট করবেন?"))return;await db.ref("vipCodes/"+c).set(Object.assign({},r,{deviceId:null}));logAct("রিসেট: "+c);toast("📱 ডিভাইস রিসেট হয়েছে")},
-  async vban(c,b){const r=S.vips[c];if(!r)return;const rs=b?(prompt("ব্যান করার কারণ (ঐচ্ছিক):")||""):"";await db.ref("vipCodes/"+c).set(Object.assign({},r,{status:b?"banned":"active",banReason:rs}));logAct((b?"ব্যান: ":"আনব্যান: ")+c);toast(b?"🚫 ব্যান কার্যকর হয়েছে!":"✅ আনব্যান হয়েছে")},
-  async vdel(c){if(!confirm("কোড "+c+" ডিলিট করবেন? ইউজার সাথে সাথে লগআউট হবে!"))return;await db.ref("vipCodes/"+c).remove();logAct("ডিলিট: "+c);toast("🗑️ ডিলিট ও লগআউট হয়েছে")},
-  async saveSet(){await db.ref("settings").update({noticeEnabled:$("ntog").checked,noticeText:$("ninp").value.trim(),adminWhatsapp:$("winp").value.trim(),welcomeTitle:$("wtinp").value.trim()||"নূর-ই-ফিরদাউস-এ স্বাগতম"});logAct("সেটিংস আপডেট");toast("💾 সেটিংস সেভ হয়েছে!")},
-  async chPin(){const np=$("npin").value.trim();if(!/^\d{6}$/.test(np)){toast("সঠিক ৬ ডিজিট দিন!");return}await db.ref("settings").update({pinHash:hash(np)});logAct("পিন পরিবর্তন");$("npin").value="";toast("🔐 নতুন পিন সেট হয়েছে!")},
+  async vrst(c){const r=S.vips[c];if(!r||!confirm("ডিভাইস রিসেট করবেন?"))return;try{await db.ref("vipCodes/"+c).set(Object.assign({},r,{deviceId:null}));logAct("রিসেট: "+c);toast("📱 ডিভাইস রিসেট হয়েছে")}catch(e){fbErr(e)}},
+  async vban(c,b){const r=S.vips[c];if(!r)return;const rs=b?(prompt("ব্যান করার কারণ (ঐচ্ছিক):")||""):"";try{await db.ref("vipCodes/"+c).set(Object.assign({},r,{status:b?"banned":"active",banReason:rs}));logAct((b?"ব্যান: ":"আনব্যান: ")+c);toast(b?"🚫 ব্যান কার্যকর হয়েছে!":"✅ আনব্যান হয়েছে")}catch(e){fbErr(e)}},
+  async vdel(c){if(!confirm("কোড "+c+" ডিলিট করবেন? ইউজার সাথে সাথে লগআউট হবে!"))return;try{await db.ref("vipCodes/"+c).remove();logAct("ডিলিট: "+c);toast("🗑️ ডিলিট ও লগআউট হয়েছে")}catch(e){fbErr(e)}},
+  async saveSet(){try{await db.ref("settings").update({noticeEnabled:$("ntog").checked,noticeText:$("ninp").value.trim(),adminWhatsapp:$("winp").value.trim(),welcomeTitle:$("wtinp").value.trim()||"নূর-ই-ফিরদাউস-এ স্বাগতম"});logAct("সেটিংস আপডেট");toast("💾 সেটিংস সেভ হয়েছে!")}catch(e){fbErr(e)}},
+  async chPin(){const np=$("npin").value.trim();if(!/^\d{6}$/.test(np)){toast("সঠিক ৬ ডিজিট দিন!");return}try{await db.ref("settings").update({pinHash:hash(np)});logAct("পিন পরিবর্তন");$("npin").value="";toast("🔐 নতুন পিন সেট হয়েছে!")}catch(e){fbErr(e)}},
   qflt(){const q=$("qsrc").value.trim().toLowerCase();renderSurahs(S.surahs.filter(s=>s.englishName.toLowerCase().includes(q)||s.name.includes(q)||String(s.number).includes(q)))},
   async qopen(n){
     Snd.p();stopAud();$("qlistv").style.display="none";$("qreadv").style.display="block";$("aybox").innerHTML='<div style="text-align:center;padding:28px;color:var(--g1)">✨ সূরা, অনুবাদ, তাফসীর ও অডিও লোড হচ্ছে...</div>';
@@ -801,8 +802,9 @@ const ua=navigator.userAgent||"";
 $("dtag").textContent=/iPhone/i.test(ua)?"iPhone iOS":/Android/i.test(ua)?(innerWidth>720?"Android Tab":"Android Mobile"):/Mac/i.test(ua)?"MacBook":/Win/i.test(ua)?"Windows PC":"Smart Display";
 $("sbtn").textContent=S.snd?"🔊":"🔇";
 
-$("btrig").addEventListener("click",()=>{S.taps++;clearTimeout(S.tapT);S.tapT=setTimeout(()=>S.taps=0,1600);if(S.taps>=5){S.taps=0;NF.admAuth()}});
-if(location.hash==="#royal-admin")setTimeout(()=>NF.admAuth(),450);
+$("btrig").addEventListener("click",()=>{S.taps++;clearTimeout(S.tapT);S.tapT=setTimeout(()=>S.taps=0,2500);if(S.taps>=5){S.taps=0;NF.admAuth()}});
+const checkHash=()=>{if(location.hash==="#royal-admin")setTimeout(()=>NF.admAuth(),250)};
+addEventListener("hashchange",checkHash);checkHash();
 
 if(HAS_FB){
   $("slbl").textContent="BST ক্লাউড লাইভ";
@@ -815,4 +817,4 @@ initPts();initT();renderP();applySet();enforce();updBm();setInterval(tick,1000);
 })();
 </script>
 </body>
-</html>
+                                                                    </html>
